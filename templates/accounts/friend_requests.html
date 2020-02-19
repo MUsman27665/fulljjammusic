@@ -1,0 +1,141 @@
+{% extends 'mainprofile.html' %}
+{% block content %}
+{%load static%}
+
+<div class="container">
+	<div class="row">
+			<div class="col col-xl-3 order-xl-1 col-lg-3 order-lg-1 col-md-12 order-md-2 col-sm-12 col-12 responsive-display-none">
+					<div class="ui-block">
+		
+						<!-- Your Profile  -->
+						
+						<div class="your-profile">
+								<div class="ui-block-title ui-block-title-small">
+									<h6 class="title">Your PROFILE</h6>
+								</div>
+							
+								<div id="accordion" role="tablist" aria-multiselectable="true">
+									<div class="card">
+										<div class="card-header" role="tab" id="headingOne">
+											<h6 class="mb-0">
+												<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+													Profile Settings
+													<svg class="olymp-dropdown-arrow-icon"><use xlink:href="#olymp-dropdown-arrow-icon"></use></svg>
+												</a>
+											</h6>
+										</div>
+							
+										<div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+											<ul class="your-profile-menu">
+												<li>
+													<a href="/accounts/updateprofile/{{user.userprofile.id}}">Personal Information</a>
+												</li>
+												<li>
+													<!-- <a href="29-YourAccount-AccountSettings.html">Account Settings</a> -->
+												</li>
+												<li>
+													<a href="/accounts/password_change/">Change Password</a>
+												</li>
+												<li>
+													<a href="/accounts/hobbiesandinterests/{{user.userprofile.id}}">Hobbies and Interests</a>
+												</li>
+												<li>
+													<a href="/accounts/educationhistory/{{user.userprofile.id}}">Education and Employement</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							
+								<!-- <div class="ui-block-title">
+									<a href="33-YourAccount-Notifications.html" class="h6 title">Notifications</a>
+									<a href="#" class="items-round-little bg-primary">8</a>
+								</div> -->
+								<!-- <div class="ui-block-title">
+									<a href="/messages/{{user.username}}/" class="h6 title">Chat / Messages</a>
+								</div> -->
+								<div class="ui-block-title">
+									<a href="/friends/RecFriendRequests/{{user.userprofile.id}}" class="h6 title">Friend Requests</a>
+									<a href="/friends/RecFriendRequests/{{user.userprofile.id}}" class="items-round-little bg-blue">{{rec_friend_requests.count}}</a>
+								</div>
+								<!-- <div class="ui-block-title ui-block-title-small">
+									<h6 class="title">FAVOURITE PAGE</h6>
+								</div> -->
+								<!-- <div class="ui-block-title">
+									<a href="36-FavPage-SettingsAndCreatePopup.html" class="h6 title">Create Fav Page</a>
+								</div>
+								<div class="ui-block-title">
+									<a href="36-FavPage-SettingsAndCreatePopup.html" class="h6 title">Fav Page Settings</a>
+								</div> -->
+							</div>
+						
+						<!-- ... end Your Profile  -->
+					</div>
+			</div>
+			<div class="col col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12">
+                <!-- Your Profile form  -->
+                <div class="ui-block">
+                    <div class="ui-block-title">
+                        <h6 class="title">Friend Requests</h6>
+                        <a href="#" class="more"><svg class="olymp-three-dots-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use></svg></a>
+                    </div>
+    
+                    
+                    <!-- Notification List Frien Requests -->
+                    
+                    <ul class="notification-list friend-requests">
+                        {% for frequest in rec_friend_requests %}
+                       
+                        <li>
+                            <div class="author-thumb">
+                            {%if frequest.from_user.p_photo.url != "/static/img/blank-user.png"%}
+                            <img src="{{frequest.from_user.p_photo.url}}" alt="author" width="42" height="42">
+                            {%else%}
+                            <img src="/static/img/blank-user.png" alt="author" width="42" height="42">
+                            {%endif%}
+                                
+                            </div>
+                            <div class="notification-event">
+                                <a href="/friends/showresult/{{frequest.from_user.id}}" class="h6 notification-friend">{{frequest.from_user.username}}</a>
+                                <span class="chat-message-item">Mutual Friend: Sarah Hetfield</span>
+                            </div>
+                            <span class="notification-icon">
+                                            
+                                <a href="/friends/accept_request/{{frequest.from_user.id}}" class="accept-request">
+                                    <span class="icon-add">
+                                        <svg class="olymp-happy-face-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-happy-face-icon"></use></svg>
+                                    </span>
+                                      Accept Friend Request
+                                </a>
+                    
+                                <a href="/friends/delete_request/{{frequest.from_user.id}}" class="accept-request request-del">
+                                 <span class="icon-minus">
+                                    <svg class="olymp-happy-face-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-happy-face-icon"></use></svg>
+                                 </span>
+                                  </a>
+                                  
+                            </span>
+                    
+                            <div class="more">
+                                <svg class="olymp-three-dots-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use></svg>
+                                <svg class="olymp-little-delete"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-little-delete"></use></svg>
+                            </div>
+                        </li>
+                       
+                        {%endfor%}
+                       
+                        
+                    
+                        
+                    </ul>
+                    
+                    <!-- ... end Notification List Frien Requests -->
+                </div>
+                <!-- end Profile form  -->
+            </div>
+	</div>
+</div>
+
+
+
+{%endblock content%}

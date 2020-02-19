@@ -1,0 +1,355 @@
+{% extends 'mainprofile.html' %}
+{% block content %}
+{%load static%}
+
+<div class="container">
+	<div class="row">
+			<div class="col col-xl-3 order-xl-1 col-lg-3 order-lg-1 col-md-12 order-md-2 col-sm-12 col-12 responsive-display-none">
+					<div class="ui-block">
+		
+						<!-- Your Profile  -->
+						
+                        <div class="your-profile">
+								<div class="ui-block-title ui-block-title-small">
+									<h6 class="title">Your PROFILE</h6>
+								</div>
+							
+								<div id="accordion" role="tablist" aria-multiselectable="true">
+									<div class="card">
+										<div class="card-header" role="tab" id="headingOne">
+											<h6 class="mb-0">
+												<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+													Profile Settings
+													<svg class="olymp-dropdown-arrow-icon"><use xlink:href="#olymp-dropdown-arrow-icon"></use></svg>
+												</a>
+											</h6>
+										</div>
+							
+										<div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+											<ul class="your-profile-menu">
+												<li>
+													<a href="/accounts/updateprofile/{{user.userprofile.id}}">Personal Information</a>
+												</li>
+												<li>
+													<!-- <a href="29-YourAccount-AccountSettings.html">Account Settings</a> -->
+												</li>
+												<li>
+													<a href="/accounts/password_change/">Change Password</a>
+												</li>
+												<li>
+													<a href="/accounts/hobbiesandinterests/{{user.userprofile.id}}">Hobbies and Interests</a>
+												</li>
+												<li>
+													<a href="/accounts/educationhistory/{{user.userprofile.id}}">Education and Employement</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							
+								<!-- <div class="ui-block-title">
+									<a href="33-YourAccount-Notifications.html" class="h6 title">Notifications</a>
+									<a href="#" class="items-round-little bg-primary">8</a>
+								</div> -->
+								<!-- <div class="ui-block-title">
+									<a href="/messages/{{user.username}}/" class="h6 title">Chat / Messages</a>
+								</div> -->
+								<div class="ui-block-title">
+									<a href="/friends/RecFriendRequests/{{user.userprofile.id}}" class="h6 title">Friend Requests</a>
+									<a href="#" class="items-round-little bg-blue">{{count_request}}</a>
+								</div>
+								<!-- <div class="ui-block-title ui-block-title-small">
+									<h6 class="title">FAVOURITE PAGE</h6>
+								</div> -->
+								<!-- <div class="ui-block-title">
+									<a href="36-FavPage-SettingsAndCreatePopup.html" class="h6 title">Create Fav Page</a>
+								</div>
+								<div class="ui-block-title">
+									<a href="36-FavPage-SettingsAndCreatePopup.html" class="h6 title">Fav Page Settings</a>
+								</div> -->
+							</div>
+						<!-- ... end Your Profile  -->
+		
+					</div>
+			</div>
+
+
+			
+			<div class="col col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12">
+            
+                
+                <!-- this is the edication form area -->
+
+                <div class="ui-block">
+                    <div class="ui-block-title">
+                        <h6 class="title">Your Education History</h6>
+                    </div>
+                    <div class="ui-block-content">
+    
+                        
+                        <!-- Education History Form -->
+                        
+                        <form method="POST" action = "/accounts/educationhistory/{{user.educationhistory.id}}/" enctype="multipart/form-data">{% csrf_token %}
+                            <div class="row">
+                        
+                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Title or Place</label>
+                                        {% if user.educationhistory.titile_place1 == blank%}
+                                        <input name="titile_place1" class="form-control" type="text" value="">
+                                        {% else %}
+                                        <input name="titile_place1" class="form-control" type="text" value="{{user.educationhistory.titile_place1}}">
+                                        {% endif %}
+                                        <span class="material-input"></span></div>
+                                </div>
+                        
+                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Period of Time</label>
+                                    
+                                        {% if user.educationhistory.period1 == blank%}
+                                        <input name="period1" class="form-control"  type="text" value="">
+                                        {% else %}
+                                        <input name="period1" class="form-control"  type="text" value="{{user.educationhistory.period1}}">
+                                        {% endif %}
+                                    <span class="material-input"></span></div>
+                                </div>
+                        
+                                <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Description</label>
+                                        {% if user.educationhistory.description1 == blank%}
+                                        <textarea name="description1" class="form-control" ></textarea>
+                                        {% else %}
+                                        <textarea name="description1" class="form-control" >{{user.educationhistory.description1}} </textarea>
+                                        {% endif %}
+                                    <span class="material-input"></span></div>
+                                </div>
+                        
+                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Title or Place</label>
+                                        {% if user.educationhistory.titile_place2 == blank%}
+                                        <input name="titile_place2" class="form-control"  type="text" value="">
+                                        {% else %}
+                                        <input name="titile_place2" class="form-control"  type="text" value="{{user.educationhistory.titile_place2}}">
+                                        {% endif %}
+                                        <span class="material-input"></span></div>
+                                </div>
+                        
+                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Period of Time</label>
+                                        {% if user.educationhistory.period2 == blank%}
+                                        <input name="period2" class="form-control"  type="text" value="">
+                                        {% else %}
+                                        <input name="period2" class="form-control" type="text" value="{{user.educationhistory.period2}}">
+                                        {% endif %}
+                                        <span class="material-input"></span></div>
+                                </div>
+                        
+                                <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Description</label>
+                                        {% if user.educationhistory.description2 == blank%}
+                                        <textarea name="description2" class="form-control" ></textarea>
+                                        {% else %}
+                                        <textarea name="description2" class="form-control"  >{{user.educationhistory.description2}}</textarea>
+                                        {% endif %}
+                                        <span class="material-input"></span></div>
+                                </div>
+                        
+                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Title or Place</label>
+                                        {% if user.educationhistory.titile_place3 == blank%}
+                                        <input name="titile_place3" class="form-control"  type="text" value="">
+                                        {% else %}
+                                        <input name="titile_place3" class="form-control"  type="text" value="{{user.educationhistory.titile_place3}}">
+                                        {% endif %}
+                                    <span class="material-input"></span></div>
+                                </div>
+                        
+                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Period of Time</label>
+                                        {% if user.educationhistory.period3 == blank%}
+                                        <input name="period3" class="form-control"  type="text" value="">
+                                        {% else %}
+                                        <input name="period3" class="form-control"  type="text" value="{{user.educationhistory.period3}}">
+                                        {% endif %}
+                                    <span class="material-input"></span></div>
+                                </div>
+                        
+                                <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Description</label>
+                                        {% if user.educationhistory.description3 == blank%}
+                                        <textarea name="description3" class="form-control" ></textarea>
+                                        {% else %}
+                                        <textarea name="description3" class="form-control" >{{user.educationhistory.description3}}</textarea>
+                                        {% endif %}
+                                    <span class="material-input"></span></div>
+                        
+                                    <!-- <a href="#" class="add-field">
+                                        <svg class="olymp-plus-icon"><use xlink:href="#olymp-plus-icon"></use></svg>
+                                        <span>Add Education Field</span>
+                                    </a> -->
+                                </div>
+                        
+                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <button class="btn btn-secondary btn-lg full-width">Cancel</button>
+                                </div>
+                        
+                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <button class="btn btn-primary btn-lg full-width">Save all Changes</button>
+                                </div>
+                            </div>
+                        </form>
+                        
+                        <!-- ... end Education History Form -->
+                    </div>
+                </div>
+
+                <!-- this is the emplyeemnt form -->
+
+                <div class="ui-block">
+
+                    <div class="ui-block-title">
+                        <h6 class="title">Your Employement History</h6>
+                    </div>
+                    
+                    <div class="ui-block-content">
+    
+                        
+                        <!-- Employement History Form -->
+                        
+                        <form method="POST" action ="/accounts/emplyementhistory/{{user.emplyementhistory.id}}/" enctype="multipart/form-data">{% csrf_token %}
+                            <div class="row">
+                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Title or Place</label>
+                                        {% if user.emplyementhistory.etitile_place1 == blank%}
+                                        <input name="etitile_place1" class="form-control"  type="text" value="">
+                                        {%else%}
+                                        <input name="etitile_place1" class="form-control"  type="text" value="{{user.emplyementhistory.etitile_place1}}">
+                                        {%endif%}
+                                        <span class="material-input"></span></div>
+                                </div>
+                        
+                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Period of Time</label>
+                                        {% if user.emplyementhistory.eperiod1 == blank%}
+                                        <input name="eperiod1" class="form-control"  type="text" value="">
+                                        {%else%}
+                                        <input name="eperiod1" class="form-control"  type="text" value="{{user.emplyementhistory.eperiod1}}">
+                                        {%endif%}
+                                    <span class="material-input"></span></div>
+                                </div>
+                        
+                                <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Description</label>
+                                        {% if user.emplyementhistory.edescription1 == blank%}
+                                        <textarea name="edescription1" class="form-control" ></textarea>
+                                        {%else%}
+                                        <textarea name="edescription1" class="form-control" >{{user.emplyementhistory.edescription1}}</textarea>
+                                        {%endif%}
+                                        <span class="material-input"></span></div>
+                                </div>
+                        
+                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Title or Place</label>
+                                        {% if user.emplyementhistory.etitile_place2 == blank%}
+                                        <input name="etitile_place2" class="form-control"  type="text" value="">
+                                        {%else%}
+                                        <input name="etitile_place2" class="form-control"  type="text" value="{{user.emplyementhistory.etitile_place2}}">
+                                        {%endif%}
+                                       
+                                    <span class="material-input"></span></div>
+                                </div>
+                        
+                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Period of Time</label>
+                                        {% if user.emplyementhistory.eperiod2 == blank%}
+                                        <input name="eperiod2" class="form-control"  type="text" value="">
+                                        {%else%}
+                                        <input name="eperiod2" class="form-control"  type="text" value="{{user.emplyementhistory.eperiod2}}">
+                                        {%endif%}
+                                        
+                                    <span class="material-input"></span></div>
+                                </div>
+                        
+                                <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Description</label>
+                                        {% if user.emplyementhistory.edescription2 == blank%}
+                                        <textarea name="edescription2" class="form-control" ></textarea>
+                                        {%else%}
+                                        <textarea name="edescription2" class="form-control" >{{user.emplyementhistory.edescription2}}</textarea>
+                                        {%endif%}
+                                       
+                                    <span class="material-input"></span></div>
+                                </div>
+                        
+                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Title or Place</label>
+                                        {% if user.emplyementhistory.etitile_place3 == blank%}
+                                        <input name="etitile_place3" class="form-control"  type="text" value="">
+                                        {%else%}
+                                        <input name="etitile_place3" class="form-control"  type="text" value="{{user.emplyementhistory.etitile_place3}}">
+                                        {%endif%}
+                                    <span class="material-input"></span></div>
+                                </div>
+                        
+                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Period of Time</label>
+                                        {% if user.emplyementhistory.eperiod3 == blank%}
+                                        <input name="eperiod3" class="form-control"  type="text" value="">
+                                        {%else%}
+                                        <input name="eperiod3" class="form-control"  type="text" value="{{user.emplyementhistory.eperiod3}}">
+                                        {%endif%}
+                                    <span class="material-input"></span></div>
+                                </div>
+                        
+                                <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Description</label>
+                                        {% if user.emplyementhistory.edescription3 == blank%}
+                                        <textarea name="edescription3" class="form-control" ></textarea>
+                                        {%else%}
+                                        <textarea name="edescription3" class="form-control" >{{user.emplyementhistory.edescription3}}</textarea>
+                                        {%endif%}
+                                    <span class="material-input"></span></div>
+                        
+                                    <!-- <a href="#" class="add-field">
+                                        <svg class="olymp-plus-icon"><use xlink:href="#olymp-plus-icon"></use></svg>
+                                        <span>Add Education Field</span>
+                                    </a> -->
+                                </div>
+                        
+                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <button class="btn btn-secondary btn-lg full-width">Cancel</button>
+                                </div>
+                        
+                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <button class="btn btn-primary btn-lg full-width">Save all Changes</button>
+                                </div>
+                            </div>
+                        </form>
+                        
+                        <!-- ... end Employement History Form -->
+                    </div>
+                </div>
+
+
+		</div>
+	</div>
+</div>
+
+{%endblock content%}

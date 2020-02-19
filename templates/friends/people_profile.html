@@ -1,0 +1,155 @@
+{% extends 'mainprofile.html' %}
+{% block content2 %}
+
+{%load static%}
+
+
+
+
+<div class="container">
+        <div class="row">
+            <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="ui-block">
+                    <div class="top-header" >
+                        <div class="top-header-thumb">
+                                {%if people.h_photo.url != "/static/img/top-header1.jpg"%}
+                                <img src="{{people.h_photo.url}}" alt="nature"  style="height: 450px; ">
+                                {%else%}
+                                <img src="/static/img/top-header1.jpg" alt="author" style="height: 450px; ">
+                                {%endif%} 
+                        </div>
+                        <div class="profile-section">
+                            <div class="row">
+                                <div class="col col-lg-5 col-md-5 col-sm-12 col-12">
+                                    <ul class="profile-menu">
+                                        <li>
+                                            <a href="/friends/showresult/{{people.id}}" class="active">Timeline</a>
+                                        </li>
+                                        <li>
+                                            <a href="/friends/about/{{people.id}}">About</a>
+                                        </li>
+                                        <li>
+                                            <a href="/friends/friends_list_for_people/{{people.id}}/">Friends</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col col-lg-5 ml-auto col-md-5 col-sm-12 col-12">
+                                    <ul class="profile-menu">
+                                        <li>
+                                            <a href="/friends/photos/{{people.id}}">Photos</a>
+                                        </li>
+                                        <li>
+                                            <a href="/friends/videos/{{people.id}}">Videos</a>
+                                        </li>
+                                        <li>
+                                                <!-- {%  if button_status != 'not_friend' %}
+                                                <div class="more"  >
+                                                <svg class="olymp-three-dots-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use></svg>
+                                                <a class="accept-request" >
+                                                        <span class="icon-minus">
+                                                            <svg class="olymp-happy-face-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-happy-face-icon"></use></svg>
+                                                        </span> Friends
+                                                </a>
+                                                <ul class="more-dropdown more-with-triangle" >
+                                                    <li>
+                                                        <a href="/friends/unfriend/{{people.id}}">Unfriend</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Report Profile</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Block Profile</a>
+                                                    </li>
+                                                </ul>
+                                                </div>
+                                                {%endif%} -->
+                                            <!-- <div class="more" >
+                                                <svg class="olymp-three-dots-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use></svg>
+                                                
+                                                <ul class="more-dropdown more-with-triangle" >
+                                                    <li>
+                                                        <a href="#">Report Profile</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Block Profile</a>
+                                                    </li>
+                                                </ul>
+                                            </div> -->
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+    
+                            <div class="control-block-button">
+                                   
+                                {% if button_status == 'not_friend' %}
+			                    <a href="/friends/send_request/{{people.id}}" class="accept-request" >
+                                        <span class="icon-add without-text"  >
+                                            <svg class="olymp-happy-face-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-happy-face-icon"></use></svg>
+                                        </span>
+                                </a>
+                                
+                               
+                                
+		                        {% elif button_status == 'friend_request_sent' %}
+		                    	<a href="/friends/cencel_request/{{people.id}}" class="accept-request request-del">
+                                    <span class="icon-minus">
+                                        <svg class="olymp-happy-face-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-happy-face-icon"></use></svg>
+                                    </span>
+                                </a>
+                                {% elif button_status != 'not_friend' %}
+                                <div class="more"  >
+                                        <!-- <svg class="olymp-three-dots-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use></svg> -->
+                                        <a class="accept-request" >
+                                                <span class="icon-minus">
+                                                    <svg class="olymp-happy-face-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-happy-face-icon"></use></svg>
+                                                </span> Friends
+                                        </a>
+                                        <ul class="more-dropdown more-with-triangle" >
+                                            <li>
+                                                <a href="/friends/unfriend/{{people.id}}">Unfriend</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Report Profile</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Block Profile</a>
+                                            </li>
+                                        </ul>
+                                        </div>
+
+		                        {% endif %}
+    
+                                
+                                <a href="/messages/{{people.username}}/" class="accept-request chat-message"  >
+                                        <svg class="olymp-chat---messages-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-chat---messages-icon"></use></svg>
+                                </a>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="top-header-author">
+                            <a href="02-ProfilePage.html" class="author-thumb">
+                                    {%if people.p_photo.url != "/static/img/blank-user.png"%}
+                                    <img src="{{people.p_photo.url}}" alt="author" width="128.99" height="128.99">
+                                    {%else%}
+                                    <img src="/static/img/blank-user.png" alt="author" width="128.99" height="128.99">
+                                    {%endif%}
+                                <!-- <img src="/static/img/blank-user.png" alt="author" width="128.99" height="128.99" > -->
+                            </a>
+                            <div class="author-content">
+                                <a href="/friends/showresult/{{people.id}}" class="h4 author-name">{{people.username}}</a>
+                                <div class="country">{{people.city}}, {{people.country}}</div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% block content_people %}
+    {%endblock content_people%}
+
+{%endblock content2%}

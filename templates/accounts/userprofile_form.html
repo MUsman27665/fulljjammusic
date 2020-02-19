@@ -1,0 +1,333 @@
+{% extends 'mainprofile.html' %}
+{% block content %}
+{%load static%}
+
+<div class="container">
+	<div class="row">
+			<div class="col col-xl-3 order-xl-1 col-lg-3 order-lg-1 col-md-12 order-md-2 col-sm-12 col-12 responsive-display-none">
+					<div class="ui-block">
+		
+						<!-- Your Profile  -->
+						
+						<div class="your-profile">
+								<div class="ui-block-title ui-block-title-small">
+									<h6 class="title">Your PROFILE</h6>
+								</div>
+							
+								<div id="accordion" role="tablist" aria-multiselectable="true">
+									<div class="card">
+										<div class="card-header" role="tab" id="headingOne">
+											<h6 class="mb-0">
+												<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+													Profile Settings
+													<svg class="olymp-dropdown-arrow-icon"><use xlink:href="#olymp-dropdown-arrow-icon"></use></svg>
+												</a>
+											</h6>
+										</div>
+							
+										<div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+											<ul class="your-profile-menu">
+												<li>
+													<a href="/accounts/updateprofile/{{user.userprofile.id}}">Personal Information</a>
+												</li>
+												<li>
+													<!-- <a href="29-YourAccount-AccountSettings.html">Account Settings</a> -->
+												</li>
+												<li>
+													<a href="/accounts/password_change/">Change Password</a>
+												</li>
+												<li>
+													<a href="/accounts/hobbiesandinterests/{{user.userprofile.id}}">Hobbies and Interests</a>
+												</li>
+												<li>
+													<a href="/accounts/educationhistory/{{user.userprofile.id}}">Education and Employement</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							
+								<!-- <div class="ui-block-title">
+									<a href="33-YourAccount-Notifications.html" class="h6 title">Notifications</a>
+									<a href="#" class="items-round-little bg-primary">8</a>
+								</div> -->
+								<!-- <div class="ui-block-title">
+									<a href="/messages/{{user.username}}/" class="h6 title">Chat / Messages</a>
+								</div> -->
+								<div class="ui-block-title">
+									<a href="/friends/RecFriendRequests/{{user.userprofile.id}}" class="h6 title">Friend Requests</a>
+									<a href="#" class="items-round-little bg-blue">{{count_request}}</a>
+								</div>
+								<!-- <div class="ui-block-title ui-block-title-small">
+									<h6 class="title">FAVOURITE PAGE</h6>
+								</div> -->
+								<!-- <div class="ui-block-title">
+									<a href="36-FavPage-SettingsAndCreatePopup.html" class="h6 title">Create Fav Page</a>
+								</div>
+								<div class="ui-block-title">
+									<a href="36-FavPage-SettingsAndCreatePopup.html" class="h6 title">Fav Page Settings</a>
+								</div> -->
+							</div>
+						
+						<!-- ... end Your Profile  -->
+		
+					</div>
+			</div>
+			<div class="col col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12">
+			<div class="ui-block">
+				<div class="ui-block-title">
+					<h6 class="title">Personal Information</h6>
+				</div>
+				<div class="ui-block-content">
+
+					
+					<!-- Personal Information Form  -->
+					
+					<form method="POST" action = "." enctype="multipart/form-data">{% csrf_token %}
+						<div class="row">
+							<div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+								<div class="form-group label-floating">
+									<label class="control-label" >First Name</label>
+									<input name="first_name" class="form-control" type="text" value="{{user.userprofile.first_name}}"  >
+								</div>
+					
+								<div class="form-group label-floating" >
+									<label class="control-label">Your Username</label>
+									<input name="username" class="form-control" type="text" value="{{user.userprofile.username}}"  >
+								</div>
+								
+								<div class="form-group date-time-picker label-floating">
+									<label class="control-label"  >Your Birthday</label>
+									<input name="datetimepicker" value="{{user.userprofile.datetimepicker}}" >
+									<span class="input-group-addon">
+									<svg class="olymp-month-calendar-icon icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-month-calendar-icon"></use></svg>
+									</span>
+								</div>
+							</div>
+					
+							<div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+								<div class="form-group label-floating">
+								<label class="control-label" for="id_last_name">Last Name</label>
+								<input name="last_name" class="form-control" type="text" required id="id_last_name" value="{{user.userprofile.last_name}}">
+									</div>
+									
+								<div class="form-group label-floating">
+									<label class="control-label">Your Website</label>
+									{% if user.userprofile.website == blank%}
+									<input class="form-control" name="website" type="text"  >
+									{% else %}
+									<input class="form-control" name="website" type="text" value="{{user.userprofile.website}}"  >
+									{% endif %}
+									
+								</div>
+					
+					
+								<div class="form-group label-floating">
+									<label class="control-label">Your Phone Number</label>
+									{% if user.userprofile.phone_number == blank%}
+									<input name="phone_number" class="form-control" type="text">
+									{% else %}
+									<input name="phone_number" class="form-control" type="text" value="{{user.userprofile.phone_number}}" >
+									{% endif %}
+								</div>
+							</div>
+					
+							<div class="col col-lg-4 col-md-4 col-sm-12 col-12">
+								<div class="form-group label-floating is-select">
+									<label class="control-label">Your Country</label>
+									<select class="selectpicker form-control" name="country">
+        					    	<option
+              							value="{{ user.userprofile.country }}"
+                  						selected="selected"
+             						>{{ user.userprofile.country }}</option>
+										<option value="United States">United States</option>
+										<option value="Australia">Australia</option>
+										<option value="Pakistan">Pakistan</option>
+										<option value="India">India</option>
+										<option value="Newzeland">Newzeland</option>
+										<option value="Africa">Africa</option>
+									</select>
+								</div>
+							</div>
+							<div class="col col-lg-4 col-md-4 col-sm-12 col-12">
+								<div class="form-group label-floating is-select">
+									<label class="control-label">Your State / Province</label>
+									<select class="selectpicker form-control" name="province" >
+										<option
+											value="{{ user.userprofile.province }}"
+											selected="selected"
+									   >{{ user.userprofile.province }}</option>
+										<option value="Canada">Canada</option>
+										<option value="Texas">Texas</option>
+										<option value="Australia">Australia</option>
+										<option value="Asia">Asia</option>
+										<option value="Arab">Arab</option>
+									</select>
+								</div>
+							</div>
+							<div class="col col-lg-4 col-md-4 col-sm-12 col-12">
+								<div class="form-group label-floating is-select">
+									<label class="control-label">Your City</label>
+									<select class="selectpicker form-control" name="city" >
+											<option
+											value="{{ user.userprofile.city }}"
+											selected="selected"
+									   >{{ user.userprofile.city }}</option>
+										<option value="San Francisco">San Francisco</option>
+										<option value="New York">New York</option>
+										<option value="Dubai">Dubai</option>
+										<option value="Sharja">Sharja</option>
+										<option value="Islamabad">Islamabad</option>
+										<option value="Lahore">Lahore</option>
+										<option value="Karachi">Karachi</option>
+										<option value="Quetta">Quetta</option>
+									</select>
+								</div>
+							</div>
+							<div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+								<div class="form-group label-floating">
+									<label class="control-label">Write a little description about you</label>
+									{% if user.userprofile.about_me == blank%}
+									<textarea name="about_me" class="form-control" ></textarea>
+									{%else%}
+									<textarea name="about_me" class="form-control" >{{user.userprofile.about_me}}</textarea>
+									{%endif%}
+								</div>
+					
+								<div class="form-group label-floating is-select">
+									<label class="control-label" for="id_datetimepicker">Your Gender</label>
+									<select name="gender" class="selectpicker form-control" id="id_datetimepicker" >
+										<option
+											value="{{ user.userprofile.gender }}"
+											selected="selected"
+									   >{{ user.userprofile.gender }}</option>
+										<option value="MALE">MALE</option>
+										<option value="FEMALE">FEMALE</option>
+										<option value="OTHER">OTHER</option>
+									</select>
+								</div>
+					
+								<div class="form-group label-floating">
+									<label class="control-label">Religious Belifs</label>
+									{% if user.userprofile.religious_belifs == blank%}
+									<input name="religious_belifs" class="form-control" type="text" >
+									{%else%}
+									<input name="religious_belifs" class="form-control" type="text" value="{{ user.userprofile.religious_belifs }}" >
+									{%endif%}
+								</div>
+							</div>
+							<div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+								<div class="form-group label-floating">
+									<label class="control-label">Your Birthplace</label>
+									{% if user.userprofile.birthplace == blank%}
+									<input name="birthplace" class="form-control" placeholder="" type="text">
+									{%else%}
+									<input name="birthplace" class="form-control" placeholder="" type="text" value="{{ user.userprofile.birthplace }}" >
+									{%endif%}
+								</div>
+					
+								<div class="form-group label-floating">
+										
+									<label class="control-label">Your Occupation</label>
+									{% if user.userprofile.occupation == blank%}
+									<input name="occupation" class="form-control" placeholder="" type="text">
+									{%else%}
+									<input name="occupation" class="form-control" placeholder="" type="text" value="{{ user.userprofile.occupation }}" >
+									{%endif%}
+								</div>
+					
+								<div class="form-group label-floating is-select">
+									<label class="control-label">Status</label>
+									<select name="relationship_status" class="selectpicker form-control" >
+											<option
+											value="{{ user.userprofile.relationship_status }}"
+											selected="selected"
+									   >{{ user.userprofile.relationship_status }}</option>
+										<option value="Married">Married</option>
+										<option value="Single">Single</option>
+									</select>
+								</div>
+					
+								<div class="form-group label-floating">
+									<label class="control-label">Political Incline</label>
+									{% if user.userprofile.political_incline == blank%}
+									<input name="political_incline" class="form-control" placeholder="" type="text">
+									{%else%}
+									<input name="political_incline" class="form-control" placeholder="" type="text"
+									value="{{ user.userprofile.political_incline }}" >
+									{%endif%}
+									
+								</div>
+							</div>
+							<div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<div class="form-group with-icon label-floating">
+									<label class="control-label">Your Facebook Account</label>
+									{% if user.userprofile.facebook == blank%}
+									<input name="facebook" class="form-control" type="text" >
+									<i class="fab fa-facebook-f c-facebook" aria-hidden="true"></i>
+									{%else%}
+									<input name="facebook" class="form-control" type="text" value="{{ user.userprofile.facebook }}">
+									<i class="fab fa-facebook-f c-facebook" aria-hidden="true"></i>
+									{%endif%}
+								</div>
+								<div class="form-group with-icon label-floating">
+									<label class="control-label">Your Twitter Account</label>
+									{% if user.userprofile.twitter == blank%}
+									<input name="twitter" class="form-control" type="text" >
+									<i class="fab fa-twitter c-twitter" aria-hidden="true"></i>
+									{%else%}
+									<input name="twitter" class="form-control" type="text" value="{{ user.userprofile.twitter }}" >
+									<i class="fab fa-twitter c-twitter" aria-hidden="true"></i>
+									{%endif%}
+								</div>
+								<div class="form-group with-icon label-floating">
+									<label class="control-label">Your RSS Feed Account</label>
+									{% if user.userprofile.RSS == blank%}
+									<input name="RSS" class="form-control" type="text"  >
+									<i class="fa fa-rss c-rss" aria-hidden="true"></i>
+									{%else%}
+									<input name="RSS" class="form-control" type="text" value="{{ user.userprofile.RSS }}" >
+									<i class="fa fa-rss c-rss" aria-hidden="true"></i>
+									{%endif%}
+								</div>
+								<div class="form-group with-icon label-floating">
+									<label class="control-label">Your Dribbble Account</label>
+									{% if user.userprofile.dibble == blank%}
+									<input name="dibble" class="form-control" type="text" >
+									<i class="fab fa-dribbble c-dribbble" aria-hidden="true"></i>
+									{%else%}
+									<input name="dibble" class="form-control" type="text" value="{{ user.userprofile.dibble }}">
+									<i class="fab fa-dribbble c-dribbble" aria-hidden="true"></i>
+									{%endif%}
+								</div>
+								<div class="form-group with-icon label-floating">
+									<label class="control-label">Your Spotify Account</label>
+									{% if user.userprofile.dibble == blank%}
+									<input name="spotify" class="form-control" type="text" >
+									<i class="fab fa-spotify c-spotify" aria-hidden="true"></i>
+									{%else%}
+									<input name="spotify" class="form-control" type="text" value="{{ user.userprofile.spotify }}" >
+									<i class="fab fa-spotify c-spotify" aria-hidden="true"></i>
+									{%endif%}
+								</div>
+							</div>
+							<div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+								<button class="btn btn-secondary btn-lg full-width">Restore all Attributes</button>
+							</div>
+							<div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+								<button class="btn btn-primary btn-lg full-width">Save all Changes</button>
+							</div>
+					
+						</div>
+					</form>
+					
+					<!-- ... end Personal Information Form  -->
+				</div>
+			</div>
+			</div>
+	</div>
+</div>
+
+
+
+{%endblock content%}

@@ -1,0 +1,353 @@
+{% extends 'mainprofile.html' %}
+{% block content %}
+{%load static%}
+
+
+
+<div class="container">
+	<div class="row">
+		<div class="col col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12">
+			<div class="ui-block">
+				<div class="ui-block-title">
+					<h6 class="title">Chat / Messages</h6>
+					<a href="#" class="more"><svg class="olymp-three-dots-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use></svg></a>
+				</div>
+
+				<div class="row">
+					<div class="col col-xl-5 col-lg-6 col-md-12 col-sm-12 col-12 padding-r-0">
+
+						
+						<!-- Notification List Chat Messages -->
+						
+						<ul class="notification-list chat-message">
+							{% for msg in msg_list %}
+							<li>
+								<div class="author-thumb">
+									{% if msg.second.userprofile.p_photo.url != "/static/img/blank-user.png"%}
+									<img src="{{msg.second.userprofile.p_photo.url}}" alt="author" width="34" height="34">
+									{% else %}
+									<img src="/static/img/blank-user.png" alt="author" width="34" height="34">
+									{% endif %}
+								</div>
+								<div class="notification-event">
+									<a href="/messages/{{msg.second}}/" class="h6 notification-friend">{{msg.second}}</a>
+									<span class="chat-message-item">{{msg.second}}</span>
+									<span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">{{msg.timestamp}}</time></span>
+								</div>
+								<span class="notification-icon">
+									<svg class="olymp-chat---messages-icon"><use xlink:href="svg-icons/sprites/icons.svg#olymp-chat---messages-icon"></use></svg>
+								</span>
+								<div class="more">
+									<svg class="olymp-three-dots-icon"><use xlink:href="svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use></svg>
+								</div>
+							</li>
+							{% endfor %}
+						</ul>
+						
+						<!-- ... end Notification List Chat Messages -->
+
+						
+						<!-- Popup Chat -->
+
+						
+						<!-- ... end Popup Chat -->
+						
+
+					</div>
+					<div class="col col-xl-7 col-lg-6 col-md-12 col-sm-12 col-12 padding-l-0">
+						<!-- Chat Field -->
+						<div class="chat-field">
+							<div class="ui-block-title">
+								<h6 class="title">{% if user != object.first %}{{ object.first }}{% else %}{{ object.second }}{% endif %}</h6>
+								<a href="#" class="more"><svg class="olymp-three-dots-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use></svg></a>
+							</div>
+							<div class="mCustomScrollbar" data-mcs-theme="dark">
+								<ul id='chat-items' class="notification-list chat-message chat-message-field" >
+									{% for chat in object.chatmessage_set.all %}
+									<li>
+										<div class="author-thumb author vcard inline-items">
+                                            {%if chat.user.userprofile.p_photo.url != "/static/img/blank-user.png"%}
+                                            <img src="{{ chat.user.userprofile.p_photo.url }}" alt="author" width="36" height="36">
+							            	{%else%}
+                                            <img src="/static/img/blank-user.png" alt="author" width="36" height="36">
+								            {%endif%}
+										</div>
+										<div class="notification-event right" >
+											<a class="h6 notification-friend">{{ chat.user }}</a>
+											<!-- <span class="notification-date">{{chat.timestamp}}</span> -->
+											<span class="chat-message-item"> {{ chat.message }} </span>
+										</div>
+									</li>
+                                    <!-- <time class="entry-date updated" datetime="2004-07-24T18:18">Yesterday at 8:10pm</time> -->
+									{% endfor %}
+								</ul>
+							</div>
+						
+							<form id="myform" method='POST'> {% csrf_token %}
+								<div class="form-group label-floating is-empty">
+                                        {{form.as_p }}
+									<!-- <label class="control-label">Write your reply here...</label>
+									<textarea class="form-control" placeholder="" id="id_message" ></textarea> -->
+								</div>
+								<div class="add-options-message">
+									<a href="#" class="options-message">
+										<svg class="olymp-computer-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-computer-icon"></use></svg>
+									</a>
+									<a href="#" class="options-message">
+										<svg class="olymp-computer-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-computer-icon"></use></svg>
+									</a>
+									<div class="options-message smile-block">
+										<svg class="olymp-happy-sticker-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-happy-sticker-icon"></use></svg>
+						
+										<ul class="more-dropdown more-with-triangle triangle-bottom-right">
+											<li>
+												<a href="#">
+													<img src="/static/img/icon-chat1.png" alt="icon">
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="/static/img/icon-chat2.png" alt="icon">
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="/static/img/icon-chat3.png" alt="icon">
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="/static/img/icon-chat4.png" alt="icon">
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="/static/img/icon-chat5.png" alt="icon">
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="/static/img/icon-chat6.png" alt="icon">
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="/static/img/icon-chat7.png" alt="icon">
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="/static/img/icon-chat8.png" alt="icon">
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="/static/img/icon-chat9.png" alt="icon">
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="/static/img/icon-chat10.png" alt="icon">
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="/static/img/icon-chat11.png" alt="icon">
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="/static/img/icon-chat12.png" alt="icon">
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="/static/img/icon-chat13.png" alt="icon">
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="/static/img/icon-chat14.png" alt="icon">
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="/static/img/icon-chat15.png" alt="icon">
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="/static/img/icon-chat16.png" alt="icon">
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="/static/img/icon-chat17.png" alt="icon">
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="/static/img/icon-chat18.png" alt="icon">
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="/static/img/icon-chat19.png" alt="icon">
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="/static/img/icon-chat20.png" alt="icon">
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="/static/img/icon-chat21.png" alt="icon">
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="/static/img/icon-chat22.png" alt="icon">
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="/static/img/icon-chat23.png" alt="icon">
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="/static/img/icon-chat24.png" alt="icon">
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="/static/img/icon-chat25.png" alt="icon">
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="/static/img/icon-chat26.png" alt="icon">
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="/static/img/icon-chat27.png" alt="icon">
+												</a>
+											</li>
+										</ul>
+									</div>
+						
+									<button name="button" type="submit" class="btn btn-primary btn-sm">Send</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+            </div>
+          
+
+            
+            
+			
+			<!-- Pagination -->
+			
+			<nav aria-label="Page navigation">
+				<ul class="pagination justify-content-center">
+					<li class="page-item disabled">
+						<a class="page-link" href="#" tabindex="-1">Previous</a>
+					</li>
+					<li class="page-item"><a class="page-link" href="#">1<div class="ripple-container"><div class="ripple ripple-on ripple-out" style="left: -10.3833px; top: -16.8333px; background-color: rgb(255, 255, 255); transform: scale(16.7857);"></div></div></a></li>
+					<li class="page-item"><a class="page-link" href="#">2</a></li>
+					<li class="page-item"><a class="page-link" href="#">3</a></li>
+					<li class="page-item"><a class="page-link" href="#">...</a></li>
+					<li class="page-item"><a class="page-link" href="#">12</a></li>
+					<li class="page-item">
+						<a class="page-link" href="#">Next</a>
+					</li>
+				</ul>
+			</nav>
+			
+			<!-- ... end Pagination -->
+
+		</div>
+
+		<div class="col col-xl-3 order-xl-1 col-lg-3 order-lg-1 col-md-12 order-md-2 col-sm-12 col-12 responsive-display-none">
+			<div class="ui-block">
+
+				<!-- Your Profile  -->
+				
+				<div class="your-profile">
+						<div class="ui-block-title ui-block-title-small">
+							<h6 class="title">Your PROFILE</h6>
+						</div>
+					
+						<div id="accordion" role="tablist" aria-multiselectable="true">
+							<div class="card">
+								<div class="card-header" role="tab" id="headingOne">
+									<h6 class="mb-0">
+										<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+											Profile Settings
+											<svg class="olymp-dropdown-arrow-icon"><use xlink:href="#olymp-dropdown-arrow-icon"></use></svg>
+										</a>
+									</h6>
+								</div>
+					
+								<div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+									<ul class="your-profile-menu">
+										<li>
+											<a href="/accounts/updateprofile/{{user.userprofile.id}}">Personal Information</a>
+										</li>
+										<li>
+											<!-- <a href="29-YourAccount-AccountSettings.html">Account Settings</a> -->
+										</li>
+										<li>
+											<a href="/accounts/password_change/">Change Password</a>
+										</li>
+										<li>
+											<a href="/accounts/hobbiesandinterests/{{user.userprofile.id}}">Hobbies and Interests</a>
+										</li>
+										<li>
+											<a href="/accounts/educationhistory/{{user.userprofile.id}}">Education and Employement</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					
+						<!-- <div class="ui-block-title">
+							<a href="33-YourAccount-Notifications.html" class="h6 title">Notifications</a>
+							<a href="#" class="items-round-little bg-primary">8</a>
+						</div> -->
+						<!-- <div class="ui-block-title">
+							<a href="/messages/{{user.username}}/" class="h6 title">Chat / Messages</a>
+						</div> -->
+						<div class="ui-block-title">
+							<a href="/friends/RecFriendRequests/{{user.userprofile.id}}" class="h6 title">Friend Requests</a>
+							<a href="/friends/RecFriendRequests/{{user.userprofile.id}}" class="items-round-little bg-blue">{{rec_friend_requests.count}}</a>
+						</div>
+						<!-- <div class="ui-block-title ui-block-title-small">
+							<h6 class="title">FAVOURITE PAGE</h6>
+						</div> -->
+						<!-- <div class="ui-block-title">
+							<a href="36-FavPage-SettingsAndCreatePopup.html" class="h6 title">Create Fav Page</a>
+						</div>
+						<div class="ui-block-title">
+							<a href="36-FavPage-SettingsAndCreatePopup.html" class="h6 title">Fav Page Settings</a>
+						</div> -->
+					</div>
+				
+				<!-- ... end Your Profile  -->
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+{% endblock %}
+
+
+

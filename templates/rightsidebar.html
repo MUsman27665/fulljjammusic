@@ -1,0 +1,137 @@
+{% load static %}
+<!-- Right Sidebar -->
+<aside class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12">
+    
+    <div class="ui-block">
+        
+        <!-- W-Birthsday-Alert -->
+        
+        <div class="widget w-birthday-alert">
+            <div class="icons-block">
+                <svg class="olymp-cupcake-icon"><use xlink:href="{% static 'svg-icons/sprites/icons.svg#olymp-cupcake-icon' %}"></use></svg>
+                <a href="#" class="more"><svg class="olymp-three-dots-icon">
+                    <use xlink:href="svg-icons/sprites/icons.svg#olymp-three-dots-icon' %}"></use></svg></a>
+            </div>
+        
+            <div class="content">
+                <div class="author-thumb">
+                    <img src="{% static 'img/avatar48-sm.jpg' %}" alt="author">
+                </div>
+
+                <span>Today is</span>
+                    <a href="#" class="h4 title">{{birthday_alert}}</a>
+                <p>Leave a message with your best wishes on profile page!</p>
+            </div>
+        </div>
+        
+        <!-- ... end W-Birthsday-Alert -->			</div>
+
+    <div class="ui-block">
+        <div class="ui-block-title">
+            <h6 class="title">Friend Suggestions</h6>
+            <a href="#" class="more"><svg class="olymp-three-dots-icon">
+                <use xlink:href="{% static 'svg-icons/sprites/icons.svg#olymp-three-dots-icon' %}"></use></svg></a>
+        </div>
+
+        
+        
+        <!-- W-Action -->
+        
+        <ul class="widget w-friend-pages-added notification-list friend-requests">
+            {% for sugg_friend in all_peoples %}
+            {% if sugg_friend not in friends_list_p%}
+            <li class="inline-items">
+                <div class="author-thumb">
+                    {%if sugg_friend.p_photo.url != "/static/img/blank-user.png"%}
+                        <img src="{{sugg_friend.p_photo.url}}" alt="author" width="34" height="34" class="avatar">
+                    {%else%}
+                        <img src="/static/img/blank-user.png" alt="author" width="34" height="34" class="avatar">
+                    {%endif%}
+                </div>
+                <div class="notification-event">
+                    <a href="#" class="h6 notification-friend">{{sugg_friend.username}}</a>
+                </div>
+                <span class="notification-icon">
+                    <a href="/friends/send_request/{{sugg_friend.id}}" class="accept-request">
+                        <span class="icon-add without-text">
+                            <svg class="olymp-happy-face-icon"><use xlink:href="{% static 'svg-icons/sprites/icons.svg#olymp-happy-face-icon' %}"></use></svg>
+                        </span>
+                    </a>
+                </span>
+            </li> 
+            {%endif%}
+            {%endfor%}       
+        </ul>
+        
+        <!-- ... end W-Action -->
+    </div>
+
+    <div class="ui-block">
+
+        <div class="ui-block-title">
+            <h6 class="title">Activity Feed</h6>
+            <a href="#" class="more"><svg class="olymp-three-dots-icon"><use xlink:href="{% static 'svg-icons/sprites/icons.svg#olymp-three-dots-icon' %}"></use></svg></a>
+        </div>
+
+        
+        <!-- W-Activity-Feed -->
+        
+        <ul class="widget w-activity-feed notification-list">
+            <li>
+                <div class="author-thumb">
+                    <img src="{% static 'img/avatar49-sm.jpg' %}" alt="author">
+                </div>
+                <div class="notification-event">
+                    <a href="#" class="h6 notification-friend">Marina Polson</a> commented on Jason Mark’s <a href="#" class="notification-link">photo.</a>.
+                    <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">2 mins ago</time></span>
+                </div>
+            </li>
+        
+        
+            <li>
+                <div class="author-thumb">
+                    <img src="{% static 'img/avatar10-sm.jpg' %}" alt="author">
+                </div>
+                <div class="notification-event">
+                    <a href="#" class="h6 notification-friend">Elaine Dreyfuss  </a> commented on your <a href="#" class="notification-link">blog post</a>.
+                    <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">2 hours ago</time></span>
+                </div>
+            </li>
+        
+            <li>
+                <div class="author-thumb">
+                    <img src="{% static 'img/avatar53-sm.jpg' %}" alt="author">
+                </div>
+                <div class="notification-event">
+                    <a href="#" class="h6 notification-friend">Bruce Peterson </a> changed his <a href="#" class="notification-link">profile picture</a>.
+                    <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">15 hours ago</time></span>
+                </div>
+            </li>
+        
+        </ul>
+        
+        <!-- .. end W-Activity-Feed -->
+    </div>
+
+
+    <div class="ui-block">
+
+        
+        <!-- W-Action -->
+        
+        <div class="widget w-action">
+        
+            <img src="{% static 'img/FJICON.png' %}" alt="Olympus">
+            <div class="content">
+                <h4 class="title">Full jam</h4>
+                <span>THE BEST SOCIAL NETWORK IS HERE!</span>
+                <a href="/accounts/register" class="btn btn-bg-secondary btn-md">Register Now!</a>
+            </div>
+        </div>
+        
+        <!-- ... end W-Action -->
+    </div>
+
+</aside>
+
+<!-- ... end Right Sidebar -->

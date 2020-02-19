@@ -1,0 +1,331 @@
+{% extends 'mainprofile.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+{%load static%}
+
+
+<div class="container">
+	<div class="row">
+
+		<!-- Main Content -->
+
+		<div class="col col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-12">
+			<div class="ui-block">
+				<div class="ui-block-title">
+					<div class="h6 title">Showing {{result_count}} Results for: “<span class="c-primary">{{request.GET.si}}</span>”</div>
+				</div>
+			</div>
+
+			<div id="search-items-grid">
+				{%for pro in users%}
+				<div class="ui-block">
+
+					<!-- Search Result -->
+					
+					<article class="hentry post searches-item">
+					
+						<div class="post__author author vcard inline-items">
+							{%if pro.p_photo.url != "/static/img/blank-user.png"%}
+							<img src="{{pro.p_photo.url}}" alt="author">
+							{%else%}
+							<img src="/static/img/blank-user.png" alt="author">
+							{%endif%}
+							<div class="author-date">
+								<a class="h6 post__author-name fn" href="/friends/user/{{pro.id}}">{{pro.first_name}} {{pro.last_name}}</a>
+								<div class="country">{{pro.city}}, {{pro.country}}</div>
+							</div>
+					
+							<span class="notification-icon">
+								<a href="#" class="accept-request">
+									<span class="icon-add without-text">
+										<svg class="olymp-happy-face-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-happy-face-icon"></use></svg>
+									</span>
+								</a>
+					
+								<a href="#" class="accept-request chat-message">
+									<svg class="olymp-chat---messages-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-chat---messages-icon"></use></svg>
+								</a>
+							</span>
+					
+							<!-- <div class="more">
+								<svg class="olymp-three-dots-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use></svg>
+								<ul class="more-dropdown">
+									<li>
+										<a href="#">Edit Post</a>
+									</li>
+									<li>
+										<a href="#">Delete Post</a>
+									</li>
+									<li>
+										<a href="#">Turn Off Notifications</a>
+									</li>
+									<li>
+										<a href="#">Select as Featured</a>
+									</li>
+								</ul>
+							</div>
+					 -->
+						</div>
+					
+						<p class="user-description">
+							<span class="title">About Me:</span> {{pro.about_me}}
+							<span class="title">Favourite TV Shows:</span> {{pro.user.hobbiesandinterests.fav_tv_shows}}
+						</p>
+						
+						<!-- <div class="post-block-photo js-zoom-gallery">
+							{%for post in all_posts%}
+							{% if post.post_image.url != blank%}
+							<a href="{{post.post_image.url}}" class="col col-3-width"><img src="{{post.post_image.url}}" alt="photo"></a>
+							{%else%}
+							<p><img src="" class="image-responsive" ></p>
+							{%endif%}
+							{%endfor%}
+							
+							
+							<a href="/static/img/post-photo5.jpg" class="more-photos col-3-width">
+								<img src="/static/img/post-photo5.jpg" alt="photo">
+								<span class="h2">+352</span>
+							</a>
+							
+						</div> -->
+						
+						<!-- <div class="post-additional-info">
+					
+							<ul class="friends-harmonic">
+								<li>
+									<a href="#">
+										<img src="/static/img/friend-harmonic9.jpg" alt="friend">
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<img src="/static/img/friend-harmonic10.jpg" alt="friend">
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<img src="/static/img/friend-harmonic7.jpg" alt="friend">
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<img src="/static/img/friend-harmonic8.jpg" alt="friend">
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<img src="/static/img/friend-harmonic11.jpg" alt="friend">
+									</a>
+								</li>
+							</ul>
+							<div class="names-people-likes">
+								You and Marina have
+								<a href="#">4 Friends in Common</a>
+							</div>
+					
+							<div class="friend-count">
+								<a href="#" class="friend-count-item">
+									<div class="h6">189</div>
+									<div class="title">Friends</div>
+								</a>
+								<a href="#" class="friend-count-item">
+									<div class="h6">{{pro.user.usercomment.cm_likes.count}}</div>
+									<div class="title">Photos</div>
+								</a>
+								<a href="#" class="friend-count-item">
+									<div class="h6">16</div>
+									<div class="title">Videos</div>
+								</a>
+							</div>
+					
+						</div> -->
+					
+					</article>
+					
+					<!-- ... end Search Result -->
+				</div>
+				{%endfor%}
+				
+
+				<!-- <div class="ui-block">
+
+				
+					
+					<article class="hentry post searches-item">
+					
+						<div class="post__author author vcard inline-items">
+							<img src="/static/img/avatar41-sm.jpg" alt="author">
+					
+							<div class="author-date">
+								<a class="h6 post__author-name fn" href="02-ProfilePage.html">The Marina Bar</a>
+								<div class="country">Restaurant / Bar</div>
+							</div>
+					
+							<span class="notification-icon">
+								<a href="#" class="accept-request fav-pages">
+									<span class="icon-add without-text">
+										<svg class="olymp-star-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-star-icon"></use></svg>
+									</span>
+								</a>
+					
+								<a href="#" class="accept-request chat-message">
+									<svg class="olymp-chat---messages-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-chat---messages-icon"></use></svg>
+								</a>
+							</span>
+					
+							<div class="more">
+								<svg class="olymp-three-dots-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use></svg>
+								<ul class="more-dropdown">
+									<li>
+										<a href="#">Edit Post</a>
+									</li>
+									<li>
+										<a href="#">Delete Post</a>
+									</li>
+									<li>
+										<a href="#">Turn Off Notifications</a>
+									</li>
+									<li>
+										<a href="#">Select as Featured</a>
+									</li>
+								</ul>
+							</div>
+					
+						</div>
+					
+						<p class="user-description">
+							<span class="title">Page Intro:</span> We’re a little resto bar that specializes in Seafood. All Saturdays we have Karaoke Night!
+							<span class="title">Based in:</span> Miami, Florida
+							<span class="title">Contact:</span> reservations@marinarestobar.com
+						</p>
+					
+						<div class="post-block-photo js-zoom-gallery">
+							<a href="/static/img/post-photo4.jpg" class="col col-3-width"><img src="/static/img/post-photo4.jpg" alt="photo"></a>
+							<a href="/static/img/post-photo7.jpg" class="col col-3-width"><img src="/static/img/post-photo7.jpg" alt="photo"></a>
+							<a href="/static/img/post-photo2.jpg" class="more-photos col-3-width">
+								<img src="img/post-photo2.jpg" alt="photo">
+								<span class="h2">+988</span>
+							</a>
+						</div>
+					
+						<div class="post-additional-info">
+					
+							<ul class="friends-harmonic">
+								<li>
+									<a href="#">
+										<img src="/static/img/friend-harmonic11.jpg" alt="friend">
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<img src="/static/img/friend-harmonic10.jpg" alt="friend">
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<img src="/static/img/friend-harmonic7.jpg" alt="friend">
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<img src="/static/img/friend-harmonic8.jpg" alt="friend">
+									</a>
+								</li>
+								<li>
+									<a href="#" class="all-users">+33</a>
+								</li>
+							</ul>
+							<div class="names-people-likes">
+								<a href="#">14 Friends</a>
+								Added this Page to Favs
+							</div>
+					
+							<div class="friend-count">
+								<a href="#" class="friend-count-item">
+									<div class="h6">599</div>
+									<div class="title">Fav +</div>
+								</a>
+								<a href="#" class="friend-count-item">
+									<div class="h6">2.8K</div>
+									<div class="title">Posts</div>
+								</a>
+								<a href="#" class="friend-count-item">
+									<div class="h6">35</div>
+									<div class="title">Videos</div>
+								</a>
+							</div>
+					
+						</div>
+					
+					</article>
+					
+				</div> -->
+
+			</div>
+
+			<a id="load-more-button" href="#" class="btn btn-control btn-more" data-load-link="search-items-to-load.html" data-container="search-items-grid">
+				<svg class="olymp-three-dots-icon">
+					<use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use>
+				</svg>
+			</a>
+		</div>
+
+		<!-- ... end Main Content -->
+
+
+		<!-- Left Sidebar -->
+
+		<!-- <div class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-6 col-12"> -->
+			<!-- <div class="ui-block">
+
+				 W-Build-Fav 
+				
+				<div class="widget w-build-fav">
+				
+					<a href="#" class="more"><svg class="olymp-three-dots-icon"><use xlink:href="svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use></svg></a>
+				
+					<div class="widget-thumb">
+						<img src="img/build-fav.png" alt="notebook">
+					</div>
+				
+					<div class="content">
+						<span>Increase your Audience</span>
+						<a href="#" class="h4 title">Build Your Fav Page in Seconds!</a>
+						<p><a href="#" class="bold">Click here</a> to start now and get your own fav page up and running! </p>
+					</div>
+				</div>
+				
+				 end W-Build-Fav 
+				
+
+			</div> -->
+
+			
+<!-- 
+		</div> -->
+
+		<!-- ... end Left Sidebar -->
+
+
+		<!-- Right Sidebar -->
+
+	
+
+		<!-- ... end Right Sidebar -->
+
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+{%endif%}
+{%endblock content%}

@@ -1,0 +1,360 @@
+{%load static%}
+<div class="ui-block">
+				
+    <!-- News Feed Form  -->
+    
+    <div class="news-feed-form">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active inline-items" data-toggle="tab" href="#home-1" role="tab" aria-expanded="true">
+    
+                    <svg class="olymp-status-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-status-icon"></use></svg>
+    
+                    <span>Status</span>
+                    
+                </a>
+            </li>
+            
+             <li class="nav-item">
+                <a class="nav-link inline-items" data-toggle="tab" href="#home-1" role="tab" aria-expanded="false">
+    
+                    <svg class="olymp-multimedia-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-multimedia-icon"></use></svg>
+    
+                    <span>Multimedia</span>
+                </a>
+            </li>
+    
+            <li class="nav-item">
+                <a class="nav-link inline-items" data-toggle="tab" href="#home-1" role="tab" aria-expanded="false">
+                    <svg class="olymp-blog-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-blog-icon"></use></svg>
+    
+                    <span>Blog Post</span>
+                </a>
+            </li> 
+        </ul>
+        <!-- for write posts -->
+        <!-- Tab panes -->
+        
+        <div class="tab-content">
+            <div class="tab-pane active" id="home-1" role="tabpanel" aria-expanded="true">
+                    
+                <form method="post" action="/postcreatenewsfeed/" enctype="multipart/form-data">{% csrf_token %}
+                    <div class="author-thumb post__author author vcard inline-items">
+                    {%if user.userprofile.p_photo.url != "/static/img/blank-user.png"%}
+                    <img src="{{user.userprofile.p_photo.url}}" alt="author" width="36" height="36" style="border-radius: 50%;">
+                    {%else%}
+                    <img src="/static/img/blank-user.png" alt="author" width="36" height="36">
+                    {%endif%}
+                        <!-- <img src="/static/img/blank-user.png" alt="author" width="36" height="36"> -->
+                    </div>
+                    <div class="form-group with-icon label-floating">
+                        <label class="control-label">Share what you are thinking here...</label>
+                        <textarea name="post_write" class="form-control" placeholder=""></textarea>
+                        
+                    </div>
+                    
+                    <!-- <p><a href="{{post_image.url}}">{{post_image.url}}</a></p> -->
+                    <!-- for preview image -->
+                    <div id="preview-container">
+                    <img id="preview-image" style="display:none" width="100" height="100" >
+                    </div>
+
+                    <!-- for preview video -->
+                    <div id="preview-container">
+                        <img id="preview-image-vid" style="display:none" width="100" height="100" >
+                        </div>
+
+                    <div class="add-options-message">	
+                        <a id="upload-dialog"  class="options-message" data-toggle="tooltip" data-placement="top"   data-original-title="ADD PHOTOS" style=" margin-right: 25px;">	
+                            <svg class="olymp-camera-icon" data-toggle="modal" >	
+                                <use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-camera-icon">
+                                </use> 
+                            </svg>
+                        </a>
+                        <input type="file" name="post_image" value="{{user.userpost.post_image.url}}" id="image-file" accept="image/jpg,image/png" style="display: none;">
+                    
+                        <!-- for video file -->
+                        <a id="upload-dialog-vid"  class="options-message" data-toggle="tooltip" data-placement="top"   data-original-title="ADD VIDEO" style=" margin-right: 25px;"  >	
+                        <svg class="olymp-computer-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-computer-icon"></use></svg>
+                        </a>
+                        <input type="file" name="post_video" value="{{user.userpost.post_video.url}}" id="image-file-vid" style="display: none;">
+
+                        
+                        <!-- <a href="" class="options-message" data-toggle="tooltip" data-placement="top"   data-original-title="TAG YOUR FRIENDS">
+                            <svg class="olymp-computer-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-computer-icon"></use></svg>
+                        </a> -->
+    
+                        <a href="#" class="options-message" data-toggle="tooltip" data-placement="top"   data-original-title="ADD LOCATION">
+                            <svg class="olymp-small-pin-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-small-pin-icon"></use></svg>
+                        </a>
+                        
+                        <button type="submit" class="btn btn-primary btn-md-2">Post Status</button>
+                        
+    
+                    </div>
+                    
+                </form>
+            </div>
+    
+            <div class="tab-pane" id="profile-1" role="tabpanel" aria-expanded="true">
+                <form>
+                    <div class="author-thumb">
+                        <img src="/static/img/author-page.jpg" alt="author">
+                    </div>
+                    <div class="form-group with-icon label-floating is-empty">
+                        <label class="control-label">Share what you are thinking here...</label>
+                        <textarea class="form-control" placeholder=""  ></textarea>
+                    </div>
+                    <div class="add-options-message">
+                        <a href="#" class="options-message" data-toggle="tooltip" data-placement="top"   data-original-title="ADD PHOTOS">
+                            <svg class="olymp-camera-icon" data-toggle="modal" data-target="#update-header-photo"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-camera-icon"></use></svg>
+                        </a>
+                        <a href="#" class="options-message" data-toggle="tooltip" data-placement="top"   data-original-title="TAG YOUR FRIENDS">
+                            <svg class="olymp-computer-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-computer-icon"></use></svg>
+                        </a>
+    
+                        <a href="#" class="options-message" data-toggle="tooltip" data-placement="top"   data-original-title="ADD LOCATION">
+                            <svg class="olymp-small-pin-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-small-pin-icon"></use></svg>
+                        </a>
+    
+                        <button class="btn btn-primary btn-md-2">Post Status</button>
+                        <button   class="btn btn-md-2 btn-border-think btn-transparent c-grey">Preview</button>
+    
+                    </div>
+    
+                </form>
+            </div>
+    
+            <div class="tab-pane" id="blog" role="tabpanel" aria-expanded="true">
+                <form>
+                    <div class="author-thumb">
+                        <img src="/static/img/author-page.jpg" alt="author">
+                    </div>
+                    <div class="form-group with-icon label-floating is-empty">
+                        <label class="control-label">Share what you are thinking here...</label>
+                        <textarea class="form-control" placeholder=""  ></textarea>
+                    </div>
+                    <div class="add-options-message">
+                        <a href="#" class="options-message" data-toggle="tooltip" data-placement="top"   data-original-title="ADD PHOTOS">
+                            <svg class="olymp-camera-icon" data-toggle="modal" data-target="#update-header-photo"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-camera-icon"></use></svg>
+                        </a>
+                        <a href="#" class="options-message" data-toggle="tooltip" data-placement="top"   data-original-title="TAG YOUR FRIENDS">
+                            <svg class="olymp-computer-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-computer-icon"></use></svg>
+                        </a>
+    
+                        <a href="#" class="options-message" data-toggle="tooltip" data-placement="top"   data-original-title="ADD LOCATION">
+                            <svg class="olymp-small-pin-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-small-pin-icon"></use></svg>
+                        </a>
+    
+                        <button class="btn btn-primary btn-md-2">Post Status</button>
+                        <button   class="btn btn-md-2 btn-border-think btn-transparent c-grey">Preview</button>
+    
+                    </div>
+    
+                </form>
+
+            </div>
+        </div>
+    </div>
+    
+    <!-- ... end News Feed Form  -->			</div>
+
+
+
+    <!-- using this for show posts -->
+    
+    {% for post in all_posts %} 
+    <div class="ui-block">
+            
+            <article class="hentry post">
+                
+                <div class="post__author author vcard inline-items">
+                    {%if user.userprofile.p_photo.url != "/static/img/blank-user.png"%}
+                    <img src="{{user.userprofile.p_photo.url}}" alt="author">
+                    {%else%}
+                    <img src="/static/img/blank-user.png" alt="author">
+                    {%endif%}
+                    <div class="author-date">
+                        <a class="h6 post__author-name fn" href="#">{{user.userprofile.username}}</a>
+                        <div class="post__date">
+                            <time class="published" datetime="{{user.userpost.post_cr_date}}" >
+                                {{post.post_cr_date}}
+                            </time>
+                        </div>
+                    </div>
+                
+                    <div class="more"><svg class="olymp-three-dots-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use></svg>
+                        <ul class="more-dropdown">
+                            <li>
+                                <a href="/postupdate/{{post.id}}/">Edit Post</a>
+                            </li>
+                            <li>
+                                <a href="/postdelete/{{post.id}}/">Delete Post</a>
+                            </li>
+                            <!-- <li>
+                                <a href="#">Turn Off Notifications</a>
+                            </li>
+                            <li>
+                                <a href="#">Select as Featured</a>
+                            </li> -->
+                        </ul>
+                    </div>
+            
+                </div>
+                
+
+                <p>{{post.post_write}}</p>
+                {% if post.post_image.url != blank%}
+                <p><img src="{{post.post_image.url}}" class="image-responsive" ></p>
+                {%else%}
+                <p><img src="" class="image-responsive" ></p>
+                {%endif%}
+                
+                {% if post.post_video.url != blank%}
+                <video style="width: 100%; height: auto;" controls>
+                    <source src="{{post.post_video.url}}" class="embed-responsive-item" > 
+                  </video>
+                {%else%}
+                <source src="" class="embed-responsive-item" >
+                {%endif%}
+                
+                
+                <!-- {% if post.post_video.url != blank%}
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="{{post.post_video.url}}" allowfullscreen></iframe>
+                  </div>
+                 {%else%}
+                 <p><source src="" class="embed-responsive-item" ></p>
+                    {%endif%} -->
+
+
+                <div class="post-additional-info inline-items">
+                    <a class="post-add-icon inline-items" href="/likepostinpro/{{post.id}}/" >
+                        <svg class="olymp-heart-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-heart-icon"></use></svg>
+                        <span>{{post.likes.count}}</span>
+                    </a>
+                        
+                </form>
+                
+                    <!-- <ul class="friends-harmonic">
+                        <li>
+                            <a href="#">
+                                <img src="/static/img/friend-harmonic7.jpg" alt="friend">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="/static/img/friend-harmonic8.jpg" alt="friend">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="/static/img/friend-harmonic9.jpg" alt="friend">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="/static/img/friend-harmonic10.jpg" alt="friend">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="/static/img/friend-harmonic11.jpg" alt="friend">
+                            </a>
+                        </li>
+                    </ul>
+            
+                    <div class="names-people-likes">
+                        <a href="#">You</a>, <a href="#">Elaine</a> and
+                        <br>22 more liked this
+                    </div>
+            
+            
+                    <div class="comments-shared">
+                        <a href="#" class="post-add-icon inline-items">
+                            <svg class="olymp-speech-balloon-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-speech-balloon-icon"></use></svg>
+                            <span>17</span>
+                        </a>
+            
+                        <a href="#" class="post-add-icon inline-items">
+                            <svg class="olymp-share-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-share-icon"></use></svg>
+                            <span>24</span>
+                        </a>
+                    </div> -->
+            
+            
+                </div>
+            
+                <div class="control-block-button post-control-button">
+            
+                    <a href="/likepostinpro/{{post.id}}/" class="btn btn-control">
+                        <svg class="olymp-like-post-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-like-post-icon"></use></svg>
+                    </a>
+            
+                    <a href="#comment-form1" class="btn btn-control">
+                        <svg class="olymp-comments-post-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-comments-post-icon"></use></svg>
+                    </a>
+            
+                    <a href="#" class="btn btn-control">
+                        <svg class="olymp-share-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-share-icon"></use></svg>
+                    </a>
+            
+                </div>
+            
+            </article>
+            
+            <!-- Comments -->
+            
+            <ul class="comments-list">
+                
+            </ul>
+            
+            <!-- ... end Comments -->
+
+            <a href="/postdetails/{{post.id}}/" class="more-comments">View comments detail <span>+</span></a>
+
+            <!-- Comment Form  -->
+            
+            <form class="comment-form inline-items" method="post" action="/commentcreate/{{post.id}}/" enctype="multipart/form-data">{% csrf_token %}
+            
+                <div class="post__author author vcard inline-items">
+                        {%if user.userprofile.p_photo.url != "/static/img/blank-user.png"%}
+                        <img src="{{user.userprofile.p_photo.url}}" alt="author" width="36" height="36">
+                        {%else%}
+                        <img src="/static/img/blank-user.png" alt="author" width="36" height="36">
+                        {%endif%}
+                    <a name="comment-form1">
+                    <div class="form-group with-icon-right" >
+                        <textarea name="comment" class="form-control" placeholder=""></textarea>
+                        <div class="add-options-message">
+                                <a id="upload-dialog-cm" class="options-message" data-toggle="modal" >
+                                        <svg class="olymp-camera-icon">
+                                            <use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-camera-icon"></use>
+                                        </svg>
+                                </a>
+                                <input type="file" name="c_image" value="{{user.userpost.post_image.url}}" id="image-file-cm" accept="image/jpg,image/png" style="display: none;">
+                        </div>
+                    </div>
+                </a>
+                </div>
+            
+                <button type="submit" class="btn btn-md-2 btn-primary">Post Comment</button>
+            
+                <!-- <button type="reset" class="btn btn-md-2 btn-border-think c-grey btn-transparent custom-color">Cancel</button> -->
+                <div id="preview-container">
+                        <img id="preview-image-cm" style="display:none" width="100" height="100" >
+                        </div>
+            </form>
+            
+            <!-- ... end Comment Form  -->
+        </div>
+
+        {% endfor %}
+
+
+
+
+
+
+<a id="load-more-button" href="#" class="btn btn-control btn-more" data-load-link="items-to-load.html" data-container="newsfeed-items-grid"><svg class="olymp-three-dots-icon"><use xlink:href="svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use></svg></a>

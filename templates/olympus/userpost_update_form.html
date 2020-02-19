@@ -1,0 +1,164 @@
+{% extends 'mainprofile.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+
+<div class="ui-block">
+				
+        <!-- News Feed Form  -->
+        
+        <div class="news-feed-form">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active inline-items" data-toggle="tab" href="#home-1" role="tab" aria-expanded="true">
+        
+                        <svg class="olymp-status-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-status-icon"></use></svg>
+        
+                        <span>Status</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link inline-items" data-toggle="tab" href="#profile-1" role="tab" aria-expanded="false">
+        
+                        <svg class="olymp-multimedia-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-multimedia-icon"></use></svg>
+        
+                        <span>Multimedia</span>
+                    </a>
+                </li>        
+                <li class="nav-item">
+                    <a class="nav-link inline-items" data-toggle="tab" href="#blog" role="tab" aria-expanded="false">
+                        <svg class="olymp-blog-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-blog-icon"></use></svg>
+        
+                        <span>Blog Post</span>
+                    </a>
+                </li>
+            </ul>
+            <!-- for write posts -->
+            <!-- Tab panes -->
+            
+            <div class="tab-content">
+                    <div class="tab-pane active" id="home-1" role="tabpanel" aria-expanded="true">     
+                        <form method="post" action="." enctype="multipart/form-data">{% csrf_token %}
+                            <div class="author-thumb">
+                        
+                            {%if user.userprofile.p_photo.url != "/static/img/blank-user.png"%}
+                            <img src="{{user.userprofile.p_photo.url}}" alt="author" width="36" height="36">
+                            {%else%}
+                            <img src="/static/img/blank-user.png" alt="author" width="36" height="36">
+                            {%endif%}
+                        
+                                <!-- <img src="/static/img/blank-user.png" alt="author" width="36" height="36"> -->
+                            </div>
+                            <div class="form-group with-icon label-floating">
+                                <label class="control-label">Share what you are thinking here...</label>
+                                {% if userpost.post_write == blank%}
+                                <textarea name="post_write" class="form-control" placeholder=""></textarea>
+                                {%else%}
+                                <textarea name="post_write" class="form-control" placeholder="">{{userpost.post_write}}</textarea>
+                                {%endif%}
+                                
+                            </div>
+                            <!-- <p><a href="{{post_image.url}}">{{post_image.url}}</a></p> -->
+                            <div id="preview-container">
+                            <img id="preview-image-up" style="display:none" width="100" height="100" >
+                            </div>
+                            <!-- for preview video -->
+								<div id="preview-container">
+									<img id="preview-image-vid" style="display:none" width="100" height="100" >
+                                    </div>
+                            <div class="add-options-message">	
+                                <a id="upload-dialog-up"  class="options-message" data-toggle="tooltip" data-placement="top"   data-original-title="ADD PHOTOS" style=" margin-right: 25px;">	
+                                    <svg class="olymp-camera-icon" data-toggle="modal" >	
+                                        <use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-camera-icon">
+                                        </use> 
+                                    </svg>
+                                </a>
+                                <input type="file" name="post_image" value="{{user.userpost.post_image.url}}" id="image-file-up" accept="image/jpg,image/png" style="display: none;">
+                                
+                                <!-- for video update -->
+                                <a id="upload-dialog-vid"  class="options-message" data-toggle="tooltip" data-placement="top"   data-original-title="ADD VIDEO" style=" margin-right: 25px;"  >	
+									<svg class="olymp-computer-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-computer-icon"></use></svg>
+									</a>
+									<input type="file" name="post_video" value="{{user.userpost.post_video.url}}" id="image-file-vid" accept="video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv" style="display: none;">
+                                
+                                <!-- <a href="" class="options-message" data-toggle="tooltip" data-placement="top"   data-original-title="TAG YOUR FRIENDS">
+                                    <svg class="olymp-computer-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-computer-icon"></use></svg>
+                                </a> -->
+            
+                                <a href="#" class="options-message" data-toggle="tooltip" data-placement="top"   data-original-title="ADD LOCATION">
+                                    <svg class="olymp-small-pin-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-small-pin-icon"></use></svg>
+                                </a>
+                                
+                                <button type="submit"  class="btn btn-primary btn-md-2">Save Post</button>
+                                
+            
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane" id="profile-1" role="tabpanel" aria-expanded="true">
+                        <form>
+                            <div class="author-thumb">
+                                <img src="/static/img/author-page.jpg" alt="author">
+                            </div>
+                            <div class="form-group with-icon label-floating is-empty">
+                                <label class="control-label">Share what you are thinking here...</label>
+                                <textarea class="form-control" placeholder=""  ></textarea>
+                            </div>
+                            <div class="add-options-message">
+                                <a href="#" class="options-message" data-toggle="tooltip" data-placement="top"   data-original-title="ADD PHOTOS">
+                                    <svg class="olymp-camera-icon" data-toggle="modal" data-target="#update-header-photo"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-camera-icon"></use></svg>
+                                </a>
+                                <a href="#" class="options-message" data-toggle="tooltip" data-placement="top"   data-original-title="TAG YOUR FRIENDS">
+                                    <svg class="olymp-computer-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-computer-icon"></use></svg>
+                                </a>
+            
+                                <a href="#" class="options-message" data-toggle="tooltip" data-placement="top"   data-original-title="ADD LOCATION">
+                                    <svg class="olymp-small-pin-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-small-pin-icon"></use></svg>
+                                </a>
+            
+                                <button class="btn btn-primary btn-md-2">Post Status</button>
+                                <button   class="btn btn-md-2 btn-border-think btn-transparent c-grey">Preview</button>
+            
+                            </div>
+            
+                        </form>
+                    </div>
+            
+                    <div class="tab-pane" id="blog" role="tabpanel" aria-expanded="true">
+                        <form>
+                            <div class="author-thumb">
+                                <img src="/static/img/author-page.jpg" alt="author">
+                            </div>
+                            <div class="form-group with-icon label-floating is-empty">
+                                <label class="control-label">Share what you are thinking here...</label>
+                                <textarea class="form-control" placeholder=""  ></textarea>
+                            </div>
+                            <div class="add-options-message">
+                                <a href="#" class="options-message" data-toggle="tooltip" data-placement="top"   data-original-title="ADD PHOTOS">
+                                    <svg class="olymp-camera-icon" data-toggle="modal" data-target="#update-header-photo"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-camera-icon"></use></svg>
+                                </a>
+                                <a href="#" class="options-message" data-toggle="tooltip" data-placement="top"   data-original-title="TAG YOUR FRIENDS">
+                                    <svg class="olymp-computer-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-computer-icon"></use></svg>
+                                </a>
+            
+                                <a href="#" class="options-message" data-toggle="tooltip" data-placement="top"   data-original-title="ADD LOCATION">
+                                    <svg class="olymp-small-pin-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-small-pin-icon"></use></svg>
+                                </a>
+            
+                                <button class="btn btn-primary btn-md-2">Post Status</button>
+                                <button   class="btn btn-md-2 btn-border-think btn-transparent c-grey">Preview</button>
+            
+                            </div>
+            
+                        </form>
+
+                    </div>
+                </div>
+        </div>
+        
+        <!-- ... end News Feed Form  -->		
+</div>
+
+{%endif%}
+{%endblock content%}
+        

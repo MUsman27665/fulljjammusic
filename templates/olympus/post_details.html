@@ -1,0 +1,262 @@
+{% extends 'mainprofile.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+{%load static%}
+<div class="container">
+	<div class="row">
+
+		<!-- Main Content -->
+
+		<main class="col col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-12">
+
+				<div class="ui-block">
+
+						<article class="hentry post">
+
+							<div class="post__author author vcard inline-items">
+								{%if post.uploaded_by.p_photo.url != "/static/img/blank-user.png"%}
+								<img src="{{post.uploaded_by.p_photo.url}}" alt="author">
+								{%else%}
+								<img src="/static/img/blank-user.png" alt="author">
+								{%endif%}
+								<div class="author-date">
+									<a class="h6 post__author-name fn" href="#">{{post.uploaded_by}}</a>
+									<div class="post__date">
+										<time class="published" datetime="{{user.userpost.post_cr_date}}" >
+											{{post.post_cr_date}}
+										</time>
+									</div>
+								</div>
+
+								{% if user == post.uploaded_by.user%}
+								<div class="more"><svg class="olymp-three-dots-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use></svg>
+									<ul class="more-dropdown">
+										<li>
+											<a href="/postupdate/{{post.id}}/">Edit Post</a>
+										</li>
+										<li>
+											<a href="/postdelete/{{post.id}}/">Delete Post</a>
+										</li>
+										<!-- <li>
+											<a href="#">Turn Off Notifications</a>
+										</li>
+										<li>
+											<a href="#">Select as Featured</a>
+										</li> -->
+									</ul>
+								</div>
+								{%endif%}
+							</div>
+
+
+							<p>{{post.post_write}}</p>
+							{% if post.post_image.url != blank%}
+							<img src="{{post.post_image.url}}" class="image-responsive" >
+							{%else%}
+							<img src="" class="image-responsive" >
+							{%endif%}
+
+							{% if post.post_video.url != blank%}
+							<video style="width: 100%; height: auto;" controls>
+								<source src="{{post.post_video.url}}" class="embed-responsive-item" > 
+							  </video>
+							{%else%}
+							<source src="" class="embed-responsive-item" >
+							{%endif%}
+
+							<div class="post-additional-info inline-items">
+								<!-- <form method="post" action="/like/{{post.id}}/" enctype="multipart/form-data">{% csrf_token %}
+
+								<button type="submit" name="userpost_id" value="{{post.id}}"
+								style="background-color:transparent; border:transparent;" > -->
+									<!-- {% if is_liked %}
+									<a href="/like/{{post.id}}/" class="post-add-icon inline-items">
+										<img src="/static/img/hearticon.PNG" alt="liked">
+									</a>
+									{%else%} -->
+									<a class="post-add-icon inline-items" data-href="/api/like/{{post.id}}/" data-likes="{{userpost.likes.count}}" href="/likepostindv/{{post.id}}/" >
+										<svg class="olymp-heart-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-heart-icon"></use></svg>
+
+
+
+									</a>
+
+									<span>{{post.likes.count}}</span>
+									<!-- {%endif%} -->
+								<!-- </button>
+
+							</form> -->
+
+								<ul class="friends-harmonic">
+									{%for comments in all_comments|slice:":5"%}
+									<li>
+										<a href="#">
+											{%if comments.comment_by.p_photo.url != "/static/img/blank-user.png"%}
+											<img src="{{comments.comment_by.p_photo.url}}" alt="author" >
+											{%else%}
+											<img src="/static/img/blank-user.png" alt="author">
+											{%endif%}
+										</a>
+									</li>
+									{%endfor%}
+								</ul>
+
+								<div class="names-people-likes">
+									<!-- <a href="#">You</a>, <a href="#"></a> and -->
+									<br>{{post.likes.count}} people liked this
+								</div>
+
+
+								<div class="comments-shared">
+									<a href="#" class="post-add-icon inline-items">
+										<svg class="olymp-speech-balloon-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-speech-balloon-icon"></use></svg>
+										<span>{{all_comments.count}}</span>
+									</a>
+
+									<!-- <a href="#" class="post-add-icon inline-items">
+										<svg class="olymp-share-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-share-icon"></use></svg>
+										<span>24</span>
+									</a> -->
+								</div>
+
+
+							</div>
+
+							<div class="control-block-button post-control-button">
+
+								<a class="btn btn-control" data-href="/api/like/{{post.id}}/" data-likes="{{userpost.likes.count}}" href="/likepostindv/{{post.id}}/" >
+									<svg class="olymp-like-post-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-like-post-icon"></use></svg>
+								</a>
+
+								<a href="#comment-form" class="btn btn-control" data-target="">
+									<svg class="olymp-comments-post-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-comments-post-icon"></use></svg>
+								</a>
+
+								<a href="#" class="btn btn-control">
+									<svg class="olymp-share-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-share-icon"></use></svg>
+								</a>
+
+							</div>
+
+						</article>
+
+						<!-- Comments -->
+
+						<ul class="comments-list">
+							{% for comments in all_comments %}
+							<li class="comment-item">
+								<div class="post__author author vcard inline-items">
+									<!-- {%if comments.comment_by.p_photo.url != "/static/img/blank-user.png"%}
+
+									{%else%}
+									<img src="/static/img/blank-user.png" alt="author">
+									{%endif%} -->
+                                    <img src="{{comments.comment_by.p_photo.url}}" alt="author">
+									<div class="author-date">
+										<a class="h6 post__author-name fn" href="02-ProfilePage.html">{{comments.comment_by}}</a>
+										<div class="post__date">
+											<time class="published" datetime="2004-07-24T18:18">
+												{{comments.cm_cr_date}}
+											</time>
+										</div>
+									</div>
+									{% if user == comments.comment_by.user %}
+									<div class="more"><svg class="olymp-three-dots-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use></svg>
+										<ul class="more-dropdown">
+											<li>
+												<!-- <a href="/commentupdate/{{comments.id}}/">Edit Post</a> -->
+											</li>
+											<li>
+												<a href="/commentdelete/{{comments.id}}/">Delete comment</a>
+											</li>
+											
+										</ul>
+									
+									</div>
+									{%endif%}
+									<!-- <a href="#" class="more"><svg class="olymp-three-dots-icon">
+										<use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use></svg></a> -->
+
+								</div>
+
+								<p>{{comments.comment}}</p>
+								{% if comments.c_image.url != blank%}
+								<p><img src="{{comments.c_image.url}}" class="image-responsive" width="380" height="380"></p>
+								{%else%}
+								<img src="" class="image-responsive" >
+								{%endif%}
+								<!-- <form method="post" action="/likecomment/{{comments.id}}/" enctype="multipart/form-data">{% csrf_token %}
+									<button type="submit"style="background-color:transparent; border:transparent;" > -->
+									<a href="/likecomment/{{comments.id}}/" class="post-add-icon inline-items">
+									<svg class="olymp-heart-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-heart-icon"></use></svg>
+									<span>{{comments.cm_likes.count}}</span>
+								</a>
+
+								<!-- <a href="replycomment/" class="reply">Reply</a> -->
+								<!-- </button>
+							</form> -->
+							
+							
+							</li>
+							{%endfor%}
+						
+						</ul>
+
+						
+						<form id="comment_form_id" class="comment-form inline-items" method="post" action="/commentcreate/{{post.id}}/" enctype="multipart/form-data">{% csrf_token %}
+
+							<div class="post__author author vcard inline-items">
+								{%if user.userprofile.p_photo.url != "/static/img/blank-user.png"%}
+								<img src="{{user.userprofile.p_photo.url}}" alt="author" width="36" height="36">
+								{%else%}
+								<img src="/static/img/blank-user.png" alt="author" width="36" height="36">
+								{%endif%}
+								<a name="-form">
+								<div class="form-group with-icon-right ">
+									<textarea name="comment" class="form-control" placeholder=""></textarea>
+
+									
+									<div class="add-options-message">
+										<a id="upload-dialog-cm" class="options-message" data-toggle="modal" >
+											<svg class="olymp-camera-icon">
+												<use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-camera-icon"></use>
+											</svg>
+										</a>
+										<input type="file" name="c_image" value="{{user.userpost.post_image.url}}" id="image-file-cm" accept="image/jpg,image/png" style="display: none;">
+									
+									</div>
+								</div>
+							</a>
+							</div>
+
+							<button type="submit" class="btn btn-md-2 btn-primary">Post Comment</button>
+
+							<!-- <button type="reset" class="btn btn-md-2 btn-border-think c-grey btn-transparent custom-color">Cancel</button> -->
+							<div id="preview-container">
+								<img id="preview-image-cm" style="display:none" width="100" height="100" >
+								</div>
+						</form>
+
+						<!-- ... end Comment Form  -->
+					</div>
+				</main>
+	</div>
+</div>
+<script type="text/javascript">
+
+	$(document).on('submit','comment_form_id',function(e){
+
+		e.preventDefault();
+
+		$.ajax({
+			type:'POST',
+			url:'/commentcreate/{{post.id}}/'
+		})
+
+	})
+
+
+</script>
+
+{%endif%}
+{%endblock content%}

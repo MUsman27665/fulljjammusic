@@ -1,0 +1,177 @@
+{% extends 'mainprofile.html' %}
+{% block content %}
+{%load static%}
+
+<div class="container">
+	<div class="row">
+			<div class="col col-xl-3 order-xl-1 col-lg-3 order-lg-1 col-md-12 order-md-2 col-sm-12 col-12 responsive-display-none">
+					<div class="ui-block">
+		
+						<!-- Your Profile  -->
+						
+						<div class="your-profile">
+								<div class="ui-block-title ui-block-title-small">
+									<h6 class="title">Your PROFILE</h6>
+								</div>
+							
+								<div id="accordion" role="tablist" aria-multiselectable="true">
+									<div class="card">
+										<div class="card-header" role="tab" id="headingOne">
+											<h6 class="mb-0">
+												<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+													Profile Settings
+													<svg class="olymp-dropdown-arrow-icon"><use xlink:href="#olymp-dropdown-arrow-icon"></use></svg>
+												</a>
+											</h6>
+										</div>
+							
+										<div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+											<ul class="your-profile-menu">
+												<li>
+													<a href="/accounts/updateprofile/{{user.userprofile.id}}">Personal Information</a>
+												</li>
+												<li>
+													<!-- <a href="29-YourAccount-AccountSettings.html">Account Settings</a> -->
+												</li>
+												<li>
+													<a href="/accounts/password_change/">Change Password</a>
+												</li>
+												<li>
+													<a href="/accounts/hobbiesandinterests/{{user.userprofile.id}}">Hobbies and Interests</a>
+												</li>
+												<li>
+													<a href="/accounts/educationhistory/{{user.userprofile.id}}">Education and Employement</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							
+								<!-- <div class="ui-block-title">
+									<a href="33-YourAccount-Notifications.html" class="h6 title">Notifications</a>
+									<a href="#" class="items-round-little bg-primary">8</a>
+								</div> -->
+								<!-- <div class="ui-block-title">
+									<a href="/messages/{{user.username}}/" class="h6 title">Chat / Messages</a>
+								</div> -->
+								<div class="ui-block-title">
+									<a href="/friends/RecFriendRequests/{{user.userprofile.id}}" class="h6 title">Friend Requests</a>
+									<a href="#" class="items-round-little bg-blue">{{count_request}}</a>
+								</div>
+								<!-- <div class="ui-block-title ui-block-title-small">
+									<h6 class="title">FAVOURITE PAGE</h6>
+								</div> -->
+								<!-- <div class="ui-block-title">
+									<a href="36-FavPage-SettingsAndCreatePopup.html" class="h6 title">Create Fav Page</a>
+								</div>
+								<div class="ui-block-title">
+									<a href="36-FavPage-SettingsAndCreatePopup.html" class="h6 title">Fav Page Settings</a>
+								</div> -->
+							</div>
+						
+						<!-- ... end Your Profile  -->
+		
+					</div>
+			</div>
+
+
+			
+			<div class="col col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12">
+			<div class="ui-block">
+				<div class="ui-block-title">
+					<h6 class="title">Hobbies and Interests</h6>
+				</div>
+				<div class="ui-block-content">
+
+					
+					<!-- Form Hobbies and Interests -->
+					
+					<form method="POST" action = "/accounts/hobbiesandinterests/{{user.hobbiesandinterests.id}}/" enctype="multipart/form-data">{% csrf_token %}
+						<div class="row">
+					
+							<div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+								<div class="form-group label-floating">
+									<label class="control-label">Hobbies</label>
+									{% if user.hobbiesandinterests.hobbies == blank%}
+									<textarea name="hobbies" class="form-control" placeholder=""></textarea>
+									{%else%}
+									<textarea name="hobbies" class="form-control" placeholder="">{{user.hobbiesandinterests.hobbies}}</textarea>
+									{%endif%}
+									<span class="material-input"></span></div>
+								<div class="form-group label-floating">
+									<label class="control-label">Favourite TV Shows</label>
+									{% if user.hobbiesandinterests.fav_tv_shows == blank%}
+									<textarea name="fav_tv_shows" class="form-control" placeholder=""></textarea>
+									{%else%}
+									<textarea name="fav_tv_shows" class="form-control" placeholder="">{{user.hobbiesandinterests.fav_tv_shows}}</textarea>
+									{%endif%}
+									<span class="material-input"></span></div>
+								<div class="form-group label-floating">
+									<label class="control-label">Favourite Movies</label>
+									{% if user.hobbiesandinterests.fav_movies == blank%}
+									<textarea name="fav_movies" class="form-control" placeholder=""></textarea>
+									{%else%}
+									<textarea name="fav_movies" class="form-control" placeholder="">{{user.hobbiesandinterests.fav_movies}}</textarea>
+									{%endif%}
+									<span class="material-input"></span></div>
+								<div class="form-group label-floating">
+									<label class="control-label">Favourite Games</label>
+									{% if user.hobbiesandinterests.fav_games == blank%}
+									<textarea name="fav_games" class="form-control" placeholder=""> </textarea>
+									{%else%}
+									<textarea name="fav_games" class="form-control" placeholder="">{{user.hobbiesandinterests.fav_games }} </textarea>
+									{%endif%}
+									<span class="material-input"></span></div>
+					
+								<button class="btn btn-secondary btn-lg full-width">Cancel</button>
+							</div>
+					
+							<div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+								<div class="form-group label-floating">
+									<label class="control-label">Favourite Music Bands / Artists</label>
+									{% if user.hobbiesandinterests.fav_music == blank%}
+									<textarea name="fav_music" class="form-control" placeholder=""></textarea>
+									{%else%}
+									<textarea name="fav_music" class="form-control" placeholder="">{{user.hobbiesandinterests.fav_music}}</textarea>
+									{%endif%}
+								<span class="material-input"></span></div>
+								<div class="form-group label-floating">
+									<label class="control-label">Favourite Books</label>
+									{% if user.hobbiesandinterests.fav_books == blank%}
+									<textarea name="fav_books" class="form-control" placeholder=""></textarea>
+									{%else%}
+									<textarea name="fav_books" class="form-control" placeholder="">{{user.hobbiesandinterests.fav_books}}</textarea>
+									{%endif%}
+								<span class="material-input"></span></div>
+								<div class="form-group label-floating">
+									<label class="control-label">Favourite Writers</label>
+									{% if user.hobbiesandinterests.fav_writers == blank%}
+									<textarea name="fav_writers" class="form-control" placeholder=""></textarea>
+									{%else%}
+									<textarea name="fav_writers" class="form-control" placeholder="">{{user.hobbiesandinterests.fav_writers}}</textarea>
+									{%endif%}
+								<span class="material-input"></span></div>
+								<div class="form-group label-floating">
+									<label class="control-label">Other Interests</label>
+									{% if user.hobbiesandinterests.other_interests == blank%}
+									<textarea name="other_interests" class="form-control" placeholder=""></textarea>
+									{%else%}
+									<textarea name="other_interests" class="form-control" placeholder="">{{user.hobbiesandinterests.other_interests}}</textarea>
+									{%endif%}
+								<span class="material-input"></span></div>
+					
+								<button class="btn btn-primary btn-lg full-width">Save all Changes</button>
+							</div>
+					
+						</div>
+					</form>
+					
+					<!-- ... end Form Hobbies and Interests -->
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{%endblock content%}

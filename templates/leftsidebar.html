@@ -1,0 +1,63 @@
+<!-- Left Sidebar -->
+{% load static %}
+<aside class="col col-xl-3 order-xl-1 col-lg-6 order-lg-1 col-md-12 col-sm-12 col-12">
+    <div class="ui-block" >
+        
+        <!-- W-Weather -->
+        <a class="weatherwidget-io" href="https://forecast7.com/en/40d71n74d01/new-york/" data-label_1="NEW YORK" data-label_2="WEATHER" data-theme="original" >NEW YORK WEATHER</a>
+<script>
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+</script>
+        <!-- W-Weather -->			</div>
+
+    <div class="ui-block">
+        
+        <!-- W-Calendar -->
+        
+        <div class="w-calendar">
+            <!-------Do not change below this line-------><div align="center"><iframe align="center" src="//widget.calendarlabs.com/v1/calendar.php?cid=1001&ver=1.2&uid=5384476208&c=8&l=en&cbg=C3D9FF&cfg=000000&hfg=000000&hfg1=000000&ct=1&cb=1&cbc=2275FF&cf=verdana&cp=&sw=0&hp=t&ib=0&ibc=&i=" width="170" height="155" marginwidth=0 marginheight=0 frameborder=0 scrolling=no allowtransparency='true'>Loading...</iframe><div align="center" style="width:140px;font-size:10px;color:#333;">Today's Calendar by  <a href="#" target="_blank" rel="nofollow" style="font-size:10px;text-decoration:none;color:#333;">FullJam</a></div></div><!-------Do not change above this line------->
+        </div>
+        
+        
+        <!-- ... end W-Calendar -->			</div>
+
+    <div class="ui-block">
+        <div class="ui-block-title">
+            <h6 class="title">Pages You May Like</h6>
+            <a href="#" class="more"><svg class="olymp-three-dots-icon">
+                <use xlink:href="{% static 'svg-icons/sprites/icons.svg#olymp-three-dots-icon' %}"></use></svg></a>
+        </div>
+
+        <!-- W-Friend-Pages-Added
+        -->
+        
+        <ul class="widget w-friend-pages-added notification-list friend-requests">
+            {% for fav in fav_pages %}
+                
+                <li class="inline-items">
+                    <div} class="author-thumb author vcard inline-items">
+                        {%if fav.fva_page_img.url != "/static/img/blank-user.png"%}
+							<img src="{{fav.fva_page_img.url}}" alt="author author vcard inline-items" width="36" height="36">
+						{%else%}
+						    <img src="/static/img/blank-user.png" alt="author author vcard inline-items" width="36" height="36">
+						{%endif%}
+                    </div}>
+                    <div class="notification-event">
+                        <a href="/favpage/{{fav.id}}/" class="h6 notification-friend">{{fav.fav_page_name}}</a>
+                        <span class="chat-message-item">{{fav.fav_page_desc}}</span>
+                    </div>
+                    <span class="notification-icon" data-toggle="tooltip" data-placement="top" data-original-title="ADD TO YOUR FAVS">
+                        <a href="/addtofavpages/{{fav.id}}/">
+                            <svg class="olymp-star-icon"><use xlink:href="{% static 'svg-icons/sprites/icons.svg#olymp-star-icon' %}"></use></svg>
+                        </a>
+                    </span>
+                </li>
+            {%endfor%}
+        
+        </ul>
+        
+        <!-- .. end W-Friend-Pages-Added -->
+    </div>
+</aside>
+
+<!-- ... end Left Sidebar -->

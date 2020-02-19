@@ -1,0 +1,264 @@
+{% extends 'friends/people_profile.html' %}
+{% block content_people %}
+{% if user.is_authenticated %}
+{%load static%}
+<div class="container">
+	<div class="row">
+
+		<main class="col col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-12">
+
+
+
+
+				<!-- using this for show posts -->
+				
+				{% for post in all_posts %} 
+				<div class="ui-block">
+						
+						<article class="hentry post">
+							
+							<div class="post__author author vcard inline-items">
+								{%if people.p_photo.url != "/static/img/blank-user.png"%}
+								<img src="{{people.p_photo.url}}" alt="author">
+								{%else%}
+								<img src="/static/img/blank-user.png" alt="author">
+								{%endif%}
+								<div class="author-date">
+									<a class="h6 post__author-name fn" href="#">{{people.username}}</a>
+									<div class="post__date">
+										<time class="published" datetime="{{user.userpost.post_cr_date}}" >
+											{{post.post_cr_date}}
+										</time>
+									</div>
+								</div>
+							
+								
+						
+							</div>
+							
+
+							<p>{{post.post_write}}</p>
+							{% if post.post_image.url != blank%}
+							<p><img src="{{post.post_image.url}}" class="image-responsive" ></p>
+							{%else%}
+							<p><img src="" class="image-responsive" ></p>
+							{%endif%}
+							
+							{% if post.post_video.url != blank%}
+							<video style="width: 100%; height: auto;" controls>
+								<source src="{{post.post_video.url}}" class="embed-responsive-item" > 
+							  </video>
+							{%else%}
+							<source src="" class="embed-responsive-item" >
+							{%endif%}
+							
+							
+							<!-- {% if post.post_video.url != blank%}
+							<div class="embed-responsive embed-responsive-16by9">
+								<iframe class="embed-responsive-item" src="{{post.post_video.url}}" allowfullscreen></iframe>
+							  </div>
+							 {%else%}
+							 <p><source src="" class="embed-responsive-item" ></p>
+								{%endif%} -->
+
+
+							<div class="post-additional-info inline-items">
+								<a class="post-add-icon inline-items" href="/likepostinpeoplepro/{{post.id}}/" >
+									<svg class="olymp-heart-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-heart-icon"></use></svg>
+									<span>{{post.likes.count}}</span>
+								</a>
+									
+							</form>
+							
+							<ul class="friends-harmonic">
+									{%for comments in all_comments|slice:":5"%}
+									<li>
+										<a href="#">
+											{%if comments.comment_by.p_photo.url != "/static/img/blank-user.png"%}
+											<img src="{{comments.comment_by.p_photo.url}}" alt="author" >
+											{%else%}
+											<img src="/static/img/blank-user.png" alt="author">
+											{%endif%}
+										</a>
+									</li>
+									{%endfor%}
+								</ul>
+
+								<div class="names-people-likes">
+									<!-- <a href="#">You</a>, <a href="#"></a> and -->
+									<br>{{post.likes.count}} people liked this
+								</div>
+
+
+								<div class="comments-shared">
+									<a href="#" class="post-add-icon inline-items">
+										<svg class="olymp-speech-balloon-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-speech-balloon-icon"></use></svg>
+										<span>{{all_comments.count}}</span>
+									</a>
+
+									<!-- <a href="#" class="post-add-icon inline-items">
+										<svg class="olymp-share-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-share-icon"></use></svg>
+										<span>24</span>
+									</a> -->
+								</div>
+						
+						
+							</div>
+						
+							<div class="control-block-button post-control-button">
+						
+								<a href="/likepostinpro/{{post.id}}/" class="btn btn-control">
+									<svg class="olymp-like-post-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-like-post-icon"></use></svg>
+								</a>
+						
+								<a href="#comment-form1" class="btn btn-control">
+									<svg class="olymp-comments-post-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-comments-post-icon"></use></svg>
+								</a>
+						
+								<!-- <a href="#" class="btn btn-control">
+									<svg class="olymp-share-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-share-icon"></use></svg>
+								</a> -->
+						
+							</div>
+						
+						</article>
+						
+						<!-- Comments -->
+						
+						<ul class="comments-list">
+							
+						</ul>
+						
+						<!-- ... end Comments -->
+	
+						<a href="/postdetails/{{post.id}}/" class="more-comments">View comments detail <span>+</span></a>
+	
+						<!-- Comment Form  -->
+						
+						<form class="comment-form inline-items" method="post" action="/commentcreate/{{post.id}}/" enctype="multipart/form-data">{% csrf_token %}
+						
+							<div class="post__author author vcard inline-items">
+									{%if user.userprofile.p_photo.url != "/static/img/blank-user.png"%}
+									<img src="{{user.userprofile.p_photo.url}}" alt="author" width="36" height="36">
+									{%else%}
+									<img src="/static/img/blank-user.png" alt="author" width="36" height="36">
+									{%endif%}
+								<a name="comment-form1">
+								<div class="form-group with-icon-right" >
+									<textarea name="comment" class="form-control" placeholder=""></textarea>
+									<div class="add-options-message">
+											<a id="upload-dialog-cm" class="options-message" data-toggle="modal" >
+													<svg class="olymp-camera-icon">
+														<use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-camera-icon"></use>
+													</svg>
+											</a>
+											<input type="file" name="c_image" value="{{user.userpost.post_image.url}}" id="image-file-cm" accept="image/jpg,image/png" style="display: none;">
+									</div>
+								</div>
+							</a>
+							</div>
+						
+							<button type="submit" class="btn btn-md-2 btn-primary">Post Comment</button>
+						
+							<!-- <button type="reset" class="btn btn-md-2 btn-border-think c-grey btn-transparent custom-color">Cancel</button> -->
+							<div id="preview-container">
+									<img id="preview-image-cm" style="display:none" width="100" height="100" >
+									</div>
+						</form>
+						
+						<!-- ... end Comment Form  -->
+					</div>
+
+					{% endfor %}
+
+
+
+
+			
+
+			<a id="load-more-button" href="#" class="btn btn-control btn-more" data-load-link="items-to-load.html" data-container="newsfeed-items-grid"><svg class="olymp-three-dots-icon"><use xlink:href="svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use></svg></a>
+
+		</main>
+
+		<!-- ... end Main Content -->
+
+		<!-- Left Sidebar -->
+
+		<div class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-6 col-12">
+
+			<div class="ui-block">
+				<div class="ui-block-title">
+					<h6 class="title">Profile Intro</h6>
+				</div>
+				<div class="ui-block-content">
+
+					<!-- W-Personal-Info -->
+					
+					<ul class="widget w-personal-info item-block">
+						<li>
+							<span class="title">About:</span>
+							<span class="text">{{people.about_me}}</span>
+						</li>
+						<li>
+							<span class="title">Favourite TV Shows:</span>
+							<span class="text">{{people.user.hobbiesandinterests.fav_tv_shows}}</span>
+						</li>
+						<li>
+							<span class="title">Favourite Music Bands / Artists:</span>
+							<span class="text">{{people.user.hobbiesandinterests.fav_music}}</span>
+						</li>
+					</ul>
+					
+					<!-- .. end W-Personal-Info -->
+					<!-- W-Socials -->
+					
+					<div class="widget w-socials">
+						<h6 class="title">Other Social Networks:</h6>
+						<a href="{{people.facebook}}" class="social-item bg-facebook">
+							<i class="fab fa-facebook-f" aria-hidden="true"></i>
+							Facebook
+						</a>
+						<a href="{{people.twitter}}" class="social-item bg-twitter">
+							<i class="fab fa-twitter" aria-hidden="true"></i>
+							Twitter
+						</a>
+						<a href="{{people.dibble}}" class="social-item bg-dribbble">
+							<i class="fab fa-dribbble" aria-hidden="true"></i>
+							Dribbble
+						</a>
+					</div>
+					
+					
+					<!-- ... end W-Socials -->
+				</div>
+			</div>
+
+			
+
+			
+
+			
+
+		</div>
+
+		<!-- ... end Left Sidebar -->
+
+
+		<!-- Right Sidebar -->
+
+		<div class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12">
+
+			
+
+			
+		</div>
+		<!-- ... end Right Sidebar -->
+	</div>
+</div>
+
+
+
+
+
+{%endif%}
+{%endblock content_people%}
