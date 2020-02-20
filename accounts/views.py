@@ -8,7 +8,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic import DeleteView,TemplateView
 from friends.models import FriendRequest
-from .models import Thread, ChatMessage, MessageNotification
+from chat.models import Thread, ChatMessage, MessageNotification
 
 
 def register(request):
