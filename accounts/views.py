@@ -8,6 +8,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic import DeleteView,TemplateView
 from friends.models import FriendRequest
+from .models import Thread, ChatMessage, MessageNotification
 
 
 def register(request):
@@ -110,6 +111,8 @@ class ProfileUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super(ProfileUpdateView, self).get_context_data(**kwargs)
         context['friends_list_p'] = self.request.user.userprofile.friends.all()
+        context['msg_list'] = Thread.objects.filter(first_id=self.request.user.id).order_by('-timestamp')
+        context['unread_notifs'] = self.request.user.notifications.filter(recipient=self.request.user)
         context['rec_friend_requests'] = FriendRequest.objects.filter(to_user=self.request.user.userprofile).order_by('-id')
         return context
 
@@ -126,6 +129,8 @@ class HobbiesAndInterestsUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super(HobbiesAndInterestsUpdateView, self).get_context_data(**kwargs)
         context['friends_list_p'] = self.request.user.userprofile.friends.all()
+        context['msg_list'] = Thread.objects.filter(first_id=self.request.user.id).order_by('-timestamp')
+        context['unread_notifs'] = self.request.user.notifications.filter(recipient=self.request.user)
         context['rec_friend_requests'] = FriendRequest.objects.filter(to_user=self.request.user.userprofile).order_by('-id')
         return context
 
@@ -135,6 +140,8 @@ class EducationsHistoryUpdate(UpdateView):
     fields = ['titile_place1','period1','description1','titile_place2','period2','description2','titile_place3','period3','description3']
     def get_context_data(self, **kwargs):
         context = super(EducationsHistoryUpdate, self).get_context_data(**kwargs)
+        context['msg_list'] = Thread.objects.filter(first_id=self.request.user.id).order_by('-timestamp')
+        context['unread_notifs'] = self.request.user.notifications.filter(recipient=self.request.user)
         context['friends_list_p'] = self.request.user.userprofile.friends.all()
         context['rec_friend_requests'] = FriendRequest.objects.filter(to_user=self.request.user.userprofile).order_by('-id')
         return context
@@ -147,6 +154,8 @@ class EmplyementHistoryUpdate(UpdateView):
     def get_context_data(self, **kwargs):
         context = super(EmplyementHistory, self).get_context_data(**kwargs)
         context['friends_list_p'] = self.request.user.userprofile.friends.all()
+        context['msg_list'] = Thread.objects.filter(first_id=self.request.user.id).order_by('-timestamp')
+        context['unread_notifs'] = self.request.user.notifications.filter(recipient=self.request.user)
         context['rec_friend_requests'] = FriendRequest.objects.filter(to_user=self.request.user.userprofile).order_by('-id')
         return context
 
@@ -161,6 +170,8 @@ class MultipleModelView(TemplateView):
          context['hobbies'] = HobbiesAndInterests.objects.all()
          context['education'] = HobbiesAndInterests.objects.all()
          context['emplyement'] = HobbiesAndInterests.objects.all()
+         context['msg_list'] = Thread.objects.filter(first_id=self.request.user.id).order_by('-timestamp')
+         context['unread_notifs'] = self.request.user.notifications.filter(recipient=self.request.user)
          context['friends_list_p'] = self.request.user.userprofile.friends.all()
          context['rec_friend_requests'] = FriendRequest.objects.filter(to_user=self.request.user.userprofile).order_by('-id')
          return context
