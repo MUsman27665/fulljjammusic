@@ -716,7 +716,7 @@
 					<div class="mCustomScrollbar" data-mcs-theme="dark">
 						<ul class="notification-list chat-message">
 							{% for msg in msg_list %}
-							<li class="message-unread">
+							<li class="message-unread js-chat-open">
 								<div class="author-thumb">
 									{% if msg.second.userprofile.p_photo.url != "/static/img/blank-user.png"%}
 									<img src="{{msg.second.userprofile.p_photo.url}}" alt="author" width="34" height="34">

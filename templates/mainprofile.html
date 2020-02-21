@@ -358,44 +358,38 @@
 
 <div class="fixed-sidebar right">
 	<div class="fixed-sidebar-right sidebar--small" id="sidebar-right">
-
 		<div class="mCustomScrollbar" data-mcs-theme="dark">
 			<ul class="chat-users">
 				{%for friends in friends_list_p %}
 				<li class="inline-items js-chat-open">
-					<div class="author-thumb">
+					<a href="">
+						<div class="author-thumb">
 							{%if friends.user.userprofile.p_photo.url != "/static/img/blank-user.png"%}
 							<img src="{{friends.user.userprofile.p_photo.url}}" alt="author"  class="avatar" width="34" height="34" >
 							{%else%}
 							<img src="/static/img/blank-user.png" alt="author" width="34" height="34" >
 							{%endif%}
-						<span class="icon-status online"></span>
-					</div>
+							<span class="icon-status online"></span>
+						</div>
+					</a>
 				</li>
 				{%endfor%}
 			</ul>
 		</div>
-
 		<div class="search-friend inline-items">
 			<a href="#" class="js-sidebar-open">
 				<svg class="olymp-menu-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-menu-icon"></use></svg>
 			</a>
 		</div>
-
 		<a href="#" class="olympus-chat inline-items js-chat-open">
 			<svg class="olymp-chat---messages-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-chat---messages-icon"></use></svg>
 		</a>
-
 	</div>
-
 	<div class="fixed-sidebar-right sidebar--large" id="sidebar-right-1">
-
 		<div class="mCustomScrollbar" data-mcs-theme="dark">
-
 			<div class="ui-block-title ui-block-title-small">
 				
 			</div>
-
 			<ul class="chat-users">
 					{%for friends in friends_list_p %}
 				<li class="inline-items">
@@ -441,9 +435,7 @@
 				{%endfor%}
 
 			</ul> 
-
 		</div>
-
 		<div class="search-friend inline-items">
 			<form class="form-group" >
 				<input class="form-control" placeholder="Search Friends..." value="" type="text">
@@ -457,30 +449,22 @@
 				<svg class="olymp-close-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-close-icon"></use></svg>
 			</a>
 		</div>
-
 		<a href="#" class="olympus-chat inline-items js-chat-open">
 
 			<h6 class="olympus-chat-title">FULLJAM CHAT</h6>
 			<svg class="olymp-chat---messages-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-chat---messages-icon"></use></svg>
 		</a>
-
 	</div>
 </div>
-
 <!-- ... end Fixed Sidebar Right -->
-
-
 <!-- Fixed Sidebar Right-Responsive -->
-
 <div class="fixed-sidebar right fixed-sidebar-responsive" id="sidebar-right-responsive">
-
 	<div class="fixed-sidebar-right sidebar--small">
 		<a href="#" class="js-sidebar-open">
 			<svg class="olymp-menu-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-menu-icon"></use></svg>
 			<svg class="olymp-close-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-close-icon"></use></svg>
 		</a>
 	</div>
-
 	<div class="fixed-sidebar-right sidebar--large">
 		<div class="mCustomScrollbar" data-mcs-theme="dark">
 
@@ -555,16 +539,10 @@
 			<svg class="olymp-chat---messages-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-chat---messages-icon"></use></svg>
 		</a>
 	</div>
-
 </div>
-
 <!-- ... end Fixed Sidebar Right-Responsive -->
-
-
 <!-- Header-BP -->
-
 <header class="header" id="site-header">
-
 	<div class="page-title">
 		<!-- {% url 'postlist/' as my_view %} -->
 		{% if request.path == '/newsfeeds/' %}
